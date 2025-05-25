@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking de Heróis Analistas</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --bg-gradient-start: #1f2937;
+            --bg-gradient-end: #374151;
+            --card-bg: rgba(55, 65, 81, 0.6);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --accent-primary: #3b82f6;
+            --accent-secondary: #10b981;
+            --accent-gold: #f59e0b;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --progress-bar-text-color: white;
+            --accent-primary-rgb: 59, 130, 246;
+        }
+
+        body.light-mode {
+            --bg-gradient-start: #e0eafc;
+            --bg-gradient-end: #cfdef3;
+            --card-bg: rgba(255, 255, 255, 0.65);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --accent-primary: #2563eb;
+            --accent-secondary: #059669;
+            --accent-gold: #d97706;
+            --progress-bar-text-color: white; /* Pode ser ajustado para preto no light mode se o fundo da barra for claro */
+            --accent-primary-rgb: 37, 99, 235;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-image: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .theme-switcher {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 100;
+        }
+
+        #theme-toggle-button {
+            background-color: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--card-border);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 2px 5px var(--shadow-color);
+            transition: background-color 0.3s, color 0.3s, transform 0.2s, border-color 0.3s;
+        }
+
+        #theme-toggle-button:hover {
+            transform: translateY(-2px);
+            background-color: rgba(var(--accent-primary-rgb), 0.15);
+        }
+        body.light-mode #theme-toggle-button:hover {
+             background-color: rgba(var(--accent-primary-rgb), 0.1);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+
+        .ranking-section, .top-analysts-panel, .overall-progress-section {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 8px 32px 0 var(--shadow-color);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .ranking-section:hover, .top-analysts-panel:hover, .overall-progress-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(0,0,0,0.4);
+        }
+        body.light-mode .ranking-section:hover, 
+        body.light-mode .top-analysts-panel:hover, 
+        body.light-mode .overall-progress-section:hover {
+            box-shadow: 0 12px 40px 0 rgba(0,0,0,0.15);
+        }
+        
+        .ranking-section h2, .top-analysts-panel .panel-title, .overall-progress-section h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--accent-primary);
+            padding-bottom: 10px;
+            color: var(--text-primary);
+            transition: border-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .ranking-section.bb h2 {
+            border-bottom-color: var(--accent-gold);
+        }
+
+        .analyst-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .analyst-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative; /* Necessário para o position-badge e movement-indicator */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease-in-out, background-color 0.3s ease, border-color 0.3s ease;
+        }
+        body.light-mode .analyst-card {
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .analyst-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .analyst-avatar-container {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative; /* Necessário para o position-badge e movement-indicator */
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+        body.light-mode .analyst-avatar-container {
+            box-shadow: 0 0 15px rgba(0,0,0,0.15);
+        }
+        
+        .avatar-bs { background-image: linear-gradient(135deg, #0ea5e9, #22d3ee); }
+        .avatar-bb { background-image: linear-gradient(135deg, #f59e0b, #fbbf24); }
+        .avatar-generic1 { background-image: linear-gradient(135deg, #ec4899, #f472b6); }
+        .avatar-generic2 { background-image: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+        .avatar-generic3 { background-image: linear-gradient(135deg, #10b981, #34d399); }
+        .avatar-generic4 { background-image: linear-gradient(135deg, #ef4444, #f87171); }
+
+        .analyst-avatar-container::before {
+            content: '';
+            position: absolute;
+            top: -5px; left: -5px; right: -5px; bottom: -5px;
+            border-radius: 50%;
+            border: 2px solid var(--card-border);
+            opacity: 0.7;
+            transition: border-color 0.3s ease;
+        }
+        body.light-mode .analyst-avatar-container::before {
+            border: 2px solid rgba(0,0,0,0.1);
+        }
+
+        .position-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--accent-secondary);
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            border: 2px solid white;
+            z-index: 1; /* Para ficar sobre outros elementos do avatar */
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        body.light-mode .position-badge {
+            border: 2px solid #f0f4f8; /* Ajuste para contraste no modo claro */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+
+        .position-badge.gold { background-color: var(--accent-gold); }
+        .position-badge.silver { background-color: #a0aec0; } /* Usando uma cor fixa para prata */
+        .position-badge.bronze { background-color: #cd7f32; } /* Usando uma cor fixa para bronze */
+
+        .analyst-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+
+        .team-name {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            font-style: italic;
+            transition: color 0.3s ease;
+        }
+
+        .negotiated-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--accent-secondary);
+            transition: color 0.3s ease;
+        }
+        .negotiated-value.bb-value {
+             color: var(--accent-gold);
+        }
+        .analyst-points {
+            font-size: 0.85em;
+            color: var(--accent-primary);
+            margin-left: 5px;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        body.light-mode .analyst-points {
+            color: var(--accent-primary);
+        }
+
+
+        /* Painel Outros Destaques */
+        .top-analysts-panel {
+            grid-column: span 2;
+        }
+        
+        .top-analysts-panel .sub-panel-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 25px;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .top-analysts-panel .sub-panel-title:first-of-type {
+            margin-top: 0;
+        }
+                
+        @media (max-width: 992px) {
+            .top-analysts-panel {
+                grid-column: span 1;
+            }
+            .theme-switcher {
+                position: static;
+                margin-bottom: 15px;
+                text-align: center;
+            }
+            header h1 { font-size: 2.2rem; }
+        }
+
+        .top-analyst-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .top-analyst-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--card-border);
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+            position: relative; /* Para indicadores de movimento na lista */
+        }
+        .top-analyst-item:last-child {
+            border-bottom: none;
+        }
+
+        .top-analyst-item .rank {
+            font-weight: 600;
+            color: var(--accent-primary);
+            min-width: 30px; /* Para alinhar os ranks */
+            display: flex; /* Para alinhar indicador com o rank */
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+        .top-analyst-item .name {
+            flex-grow: 1;
+            margin-left: 10px;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+        .top-analyst-item .value {
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+            text-align: right;
+        }
+
+        .overall-progress-section {
+           grid-column: 1 / -1; /* Ocupa toda a largura da grid */
+        }
+        
+        .progress-bar-container {
+            width: 100%;
+            background-color: rgba(0,0,0,0.1);
+            border-radius: 25px;
+            height: 30px;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        body.light-mode .progress-bar-container {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 25px; /* Para cantos arredondados mesmo com width baixo */
+            background-image: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            transition: width 0.8s ease-out, background-image 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .progress-bar-text {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--progress-bar-text-color);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            transition: color 0.3s ease;
+        }
+        body.light-mode .progress-bar-text {
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* === CSS PARA ANIMAÇÕES DE RANKING === */
+        .movement-indicator, .movement-indicator-list {
+            font-size: 1em; /* Ajustado para não ser muito grande */
+            animation: pulse 1.5s infinite ease-in-out;
+            display: inline-block; /* Para que o margin-left funcione */
+            line-height: 1; /* Para alinhar verticalmente melhor com o texto */
+        }
+
+        /* Indicador no Card (dentro do avatar) */
+        .analyst-avatar-container .movement-indicator {
+            position: absolute;
+            top: 5px; 
+            left: 5px; 
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border-radius: 50%;
+            width: 22px; /* Levemente maior */
+            height: 22px; /* Levemente maior */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em; /* Menor para caber no círculo */
+            z-index: 2; /* Acima do ::before do avatar */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        /* Indicador na Lista (ao lado do rank ou nome) */
+        .top-analyst-item .rank .movement-indicator-list,
+        .top-analyst-item .name .movement-indicator-list {
+            margin-left: 6px;
+        }
+
+        .movement-indicator.up, .movement-indicator-list.up {
+            color: var(--accent-secondary); /* Verde */
+        }
+
+        .movement-indicator.down, .movement-indicator-list.down {
+            color: #ef4444; /* Vermelho (usando uma cor fixa de exemplo) */
+        }
+
+        .movement-indicator.recent,
+        .movement-indicator-list.recent {
+            animation: pulse 1.5s infinite ease-in-out;
+            opacity: 1;
+        }
+
+        .movement-indicator.stale,
+        .movement-indicator-list.stale {
+            animation: none;
+            opacity: 0.5;
+            transition: opacity 0.5s ease;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.25); opacity: 0.8; }
+        }
+
+        /* Destaque para itens que mudaram de posição */
+        .analyst-card.moved-up, 
+        .analyst-card.moved-down {
+            animation: highlight-change-card 2s ease-out;
+        }
+        .top-analyst-item.moved-up-list, /* Aplicar à linha inteira do item da lista */
+        .top-analyst-item.moved-down-list {
+            animation: highlight-change-list-item 2s ease-out;
+        }
+
+        @keyframes highlight-change-card { /* Para os cards */
+            0% { box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 0px rgba(var(--accent-primary-rgb), 0); }
+            25% { box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 4px rgba(var(--accent-primary-rgb), 0.4); }
+            100% { box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 0px rgba(var(--accent-primary-rgb), 0); }
+        }
+        body.light-mode .analyst-card.moved-up, 
+        body.light-mode .analyst-card.moved-down {
+             animation: highlight-change-card-light 2s ease-out;
+        }
+        @keyframes highlight-change-card-light {
+            0% { box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 0px rgba(var(--accent-primary-rgb), 0); }
+            25% { box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 4px rgba(var(--accent-primary-rgb), 0.2); }
+            100% { box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 0px rgba(var(--accent-primary-rgb), 0); }
+        }
+
+
+        @keyframes highlight-change-list-item { /* Para os itens da lista */
+            0% { background-color: transparent; }
+            25% { background-color: rgba(var(--accent-primary-rgb), 0.1); }
+            100% { background-color: transparent; }
+        }
+        body.light-mode .top-analyst-item.moved-up-list, 
+        body.light-mode .top-analyst-item.moved-down-list {
+            animation: highlight-change-list-item-light 2s ease-out;
+        }
+        @keyframes highlight-change-list-item-light {
+            0% { background-color: transparent; }
+            25% { background-color: rgba(var(--accent-primary-rgb), 0.05); }
+            100% { background-color: transparent; }
+        }
+        /* === FIM CSS PARA ANIMAÇÕES DE RANKING === */
+
+        /* Suavizar remoções dos elementos com animação */
+        .analyst-card,
+        .top-analyst-item {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .removing {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="theme-switcher">
+                <button id="theme-toggle-button" aria-label="Alternar tema">☀️ / 🌙</button>
+            </div>
+            <h1>🏆 Ranking Heróis Analistas 🏆</h1>
+        </header>
+
+        <div id="loading-message" style="text-align: center; font-size: 1.2rem; margin: 20px 0; color: var(--text-secondary);">
+            Carregando ranking... 📊
+        </div>
+        <div id="error-message-area" style="text-align: center; font-size: 1.1rem; margin: 20px 0; color: #ef4444; background-color: rgba(239, 68, 68, 0.1); padding: 10px; border-radius: 8px; display: none;">
+            <!-- Mensagens de erro serão inseridas aqui pelo JS -->
+        </div>
+
+        <div class="main-content">
+            <!-- Ranking Bradesco Seguros -->
+            <section class="ranking-section">
+                <h2>Bradesco Seguros</h2>
+                <div class="analyst-cards-grid" id="bs-top-analysts-grid">
+                    <!-- Cards de Top 3 BS serão inseridos aqui pelo JS -->
+                    <!-- Exemplo de placeholder enquanto carrega (opcional) -->
+                    <!-- <p style="color: var(--text-secondary); text-align:center; grid-column: 1 / -1;">Carregando analistas BS...</p> -->
+                </div>
+            </section>
+
+            <!-- Ranking Banco do Brasil -->
+            <section class="ranking-section bb">
+                <h2>Banco do Brasil</h2>
+                <div class="analyst-cards-grid" id="bb-top-analysts-grid">
+                    <!-- Cards de Top 3 BB serão inseridos aqui pelo JS -->
+                </div>
+            </section>
+
+            <!-- Painel Outros Destaques -->
+            <aside class="top-analysts-panel">
+                <h3 class="panel-title">🌟 Outros Heróis em Destaque 🌟</h3>
+                
+                <div> <!-- Container para a lista BS -->
+                    <h4 class="sub-panel-title">Bradesco Seguros - Próximos Heróis</h4>
+                    <ul class="top-analyst-list" id="bs-other-analysts-list">
+                        <!-- Lista de outros analistas BS será inserida aqui pelo JS -->
+                        <!-- Exemplo de placeholder (opcional) -->
+                        <!-- <li style="color: var(--text-secondary); text-align:center;">Carregando...</li> -->
+                    </ul>
+                </div>
+
+                <div> <!-- Container para a lista BB -->
+                    <h4 class="sub-panel-title">Banco do Brasil - Próximos Heróis</h4>
+                    <ul class="top-analyst-list" id="bb-other-analysts-list">
+                        <!-- Lista de outros analistas BB será inserida aqui pelo JS -->
+                    </ul>
+                </div>
+            </aside>
+        </div>
+        
+        <section class="overall-progress-section">
+            <h3>🚀 Meta Geral da Campanha 🚀</h3>
+            <div class="progress-bar-container">
+                <div id="progress-fill" class="progress-bar-fill" style="width: 0%;">
+                    <!-- O texto agora está em um span separado para melhor controle -->
+                </div>
+                <span id="progress-text" class="progress-bar-text">0%</span>
+            </div>
+            <p style="text-align: center; margin-top: 10px; font-size: 0.9em; color: var(--text-secondary);">
+                Arrecadado: <span id="meta-current-value" style="font-weight: bold;">R$ 0,00</span> / Meta: <span id="meta-target-value" style="font-weight: bold;">R$ 0,00</span>
+            </p>
+        </section>
+
+    </div>
+
+    <!-- Seu script.js deve ser colocado em um arquivo separado e linkado aqui -->
+    <!-- Exemplo: <script src="script.js"></script> -->
+    <!-- Por ora, vou colocar o script do tema aqui para funcionar. -->
+    <script>
+        const themeToggleButton = document.getElementById('theme-toggle-button');
+        const body = document.body;
+        const loadingMessage = document.getElementById('loading-message');
+        const errorMessageArea = document.getElementById('error-message-area');
+        
+        function setTheme(theme) {
+            if (theme === 'light') {
+                body.classList.add('light-mode');
+                themeToggleButton.textContent = '🌙 Tema Escuro';
+            } else {
+                body.classList.remove('light-mode');
+                themeToggleButton.textContent = '☀️ Tema Claro';
+            }
+            localStorage.setItem('theme', theme);
+        }
+
+        themeToggleButton.addEventListener('click', () => {
+            if (body.classList.contains('light-mode')) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        });
+
+        // Script do Ranking (deve ir para script.js)
+        // --- Lógica do Ranking Dinâmico (adaptada da resposta anterior) ---
+        const bsTopAnalystsGrid = document.getElementById('bs-top-analysts-grid');
+        const bbTopAnalystsGrid = document.getElementById('bb-top-analysts-grid');
+        const bsOtherAnalystsList = document.getElementById('bs-other-analysts-list');
+        const bbOtherAnalystsList = document.getElementById('bb-other-analysts-list');
+        
+        const progressFill = document.getElementById('progress-fill');
+        const progressText = document.getElementById('progress-text');
+        const metaTargetValueEl = document.getElementById('meta-target-value');
+        const metaCurrentValueEl = document.getElementById('meta-current-value');
+
+        let previousRankingData = { bsAnalysts: [], bbAnalysts: [] };
+
+        function formatCurrency(value) {
+            if (typeof value !== 'number') value = 0;
+            return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        function createAnalystCard(analyst, teamType, movement = 'stay') {
+            const article = document.createElement('article');
+            article.classList.add('analyst-card');
+            // Adiciona um ID único para cada card para facilitar a manipulação da animação
+            article.id = `analyst-${analyst.name.replace(/[^a-zA-Z0-9]/g, '-')}-${teamType}`;
+
+            if (movement === 'up') article.classList.add('moved-up');
+            if (movement === 'down') article.classList.add('moved-down');
+            
+            let positionBadgeClass = '';
+            if (analyst.rank === 1) positionBadgeClass = 'gold';
+            else if (analyst.rank === 2) positionBadgeClass = 'silver';
+            else if (analyst.rank === 3) positionBadgeClass = 'bronze';
+
+            const pointsHTML = teamType === 'BS' && analyst.totalPoints > 0 ? `<span class="analyst-points">+${analyst.totalPoints} pts</span>` : '';
+            const valueClass = teamType === 'BB' ? 'bb-value' : '';
+            // Criação do indicador de movimento
+            let avatarIndicator = '';
+            if (movement === 'up' || movement === 'down') {
+                avatarIndicator = `<span class="movement-indicator ${movement} recent">${movement === 'up' ? '▲' : '▼'}</span>`;
+            }
+            article.innerHTML = `
+                <div class="analyst-avatar-container ${analyst.avatarClass || 'avatar-generic1'}">
+                    ${positionBadgeClass ? `<span class="position-badge ${positionBadgeClass}">#${analyst.rank}</span>` : ''}
+                    ${avatarIndicator}
+                </div>
+                <h3 class="analyst-name">${analyst.name}</h3>
+                <p class="team-name">${analyst.teamNameDetail || `Time ${teamType}`}</p>
+                <p class="negotiated-value ${valueClass}">${formatCurrency(analyst.totalValue)} ${pointsHTML}</p>
+            `;
+            // Força o reflow da animação quando houver movimento
+            if (movement === 'up' || movement === 'down') {
+                requestAnimationFrame(() => {
+                    article.classList.remove(`moved-${movement}`);
+                    void article.offsetWidth;
+                    article.classList.add(`moved-${movement}`);
+                });
+            }
+            return article;
+        }
+
+        function createOtherAnalystListItem(analyst, teamType, movement = 'stay') {
+            const li = document.createElement('li');
+            li.id = `other-analyst-${analyst.name.replace(/[^a-zA-Z0-9]/g, '-')}-${teamType}`;
+
+            if (movement === 'up') li.classList.add('moved-up-list');
+            if (movement === 'down') li.classList.add('moved-down-list');
+
+            const pointsHTML = teamType === 'BS' && analyst.totalPoints > 0 ? `<span class="analyst-points">+${analyst.totalPoints} pts</span>` : '';
+            // Criação do indicador de movimento
+            let rankIndicator = '';
+            if (movement === 'up' || movement === 'down') {
+                rankIndicator = `<span class="movement-indicator-list ${movement} recent">${movement === 'up' ? '▲' : '▼'}</span>`;
+            }
+            li.innerHTML = `
+                <div class="top-analyst-item">
+                    <span class="rank">#${analyst.rank} ${rankIndicator}</span>
+                    <span class="name">${analyst.name}</span>
+                    <span class="value">${formatCurrency(analyst.totalValue)} ${pointsHTML}</span>
+                </div>
+            `;
+            return li;
+        }
+        
+        function getMovement(oldRank, newRank) {
+            if (oldRank === undefined) return 'new'; 
+            if (newRank < oldRank) return 'up';
+            if (newRank > oldRank) return 'down';
+            return 'stay';
+        }
+        
+        function displayError(message) {
+            if (errorMessageArea) {
+                errorMessageArea.textContent = message;
+                errorMessageArea.style.display = 'block';
+            }
+            if (loadingMessage) loadingMessage.style.display = 'none';
+            console.error(message);
+        }
+
+        async function fetchAndUpdateRankings() {
+            if (loadingMessage) loadingMessage.style.display = 'block';
+            if (errorMessageArea) errorMessageArea.style.display = 'none';
+
+            try {
+                // MUDE AQUI para o URL do seu backend ou para 'ranking_data.json' se estiver usando a Opção 2
+                const apiUrl = '/api/ranking'; // Ou 'ranking_data.json' ou 'https://seu-backend.onrender.com/api/ranking'
+                const response = await fetch(apiUrl);
+
+                if (!response.ok) {
+                    let errorMsg = `Erro HTTP ${response.status} ao buscar ranking.`;
+                    try {
+                        const errorData = await response.json();
+                        errorMsg += ` Detalhes: ${errorData.error || response.statusText}`;
+                    } catch (e) { /* não conseguiu parsear JSON, usa o statusText */ }
+                    throw new Error(errorMsg);
+                }
+                const data = await response.json();
+
+                if (loadingMessage) loadingMessage.style.display = 'none';
+
+                const currentBsAnalysts = data.bsAnalysts || [];
+                const currentBbAnalysts = data.bbAnalysts || [];
+
+                const oldBsRanks = previousRankingData.bsAnalysts.reduce((acc, val) => { acc[val.name] = val.rank; return acc; }, {});
+                const oldBbRanks = previousRankingData.bbAnalysts.reduce((acc, val) => { acc[val.name] = val.rank; return acc; }, {});
+
+                // Limpar e Renderizar
+                bsTopAnalystsGrid.innerHTML = '';
+                currentBsAnalysts.slice(0, 3).forEach(analyst => {
+                    const movement = getMovement(oldBsRanks[analyst.name], analyst.rank);
+                    bsTopAnalystsGrid.appendChild(createAnalystCard(analyst, 'BS', movement));
+                });
+                 if (currentBsAnalysts.length === 0 && bsTopAnalystsGrid.innerHTML === '') {
+                    bsTopAnalystsGrid.innerHTML = '<p style="color: var(--text-secondary); text-align:center; grid-column: 1 / -1;">Nenhum analista BS encontrado.</p>';
+                }
+
+
+                bbTopAnalystsGrid.innerHTML = '';
+                currentBbAnalysts.slice(0, 3).forEach(analyst => {
+                    const movement = getMovement(oldBbRanks[analyst.name], analyst.rank);
+                    bbTopAnalystsGrid.appendChild(createAnalystCard(analyst, 'BB', movement));
+                });
+                if (currentBbAnalysts.length === 0 && bbTopAnalystsGrid.innerHTML === '') {
+                    bbTopAnalystsGrid.innerHTML = '<p style="color: var(--text-secondary); text-align:center; grid-column: 1 / -1;">Nenhum analista BB encontrado.</p>';
+                }
+
+                bsOtherAnalystsList.innerHTML = '';
+                currentBsAnalysts.slice(3).forEach(analyst => {
+                    const movement = getMovement(oldBsRanks[analyst.name], analyst.rank);
+                    bsOtherAnalystsList.appendChild(createOtherAnalystListItem(analyst, 'BS', movement));
+                });
+                 if (currentBsAnalysts.length <= 3 && bsOtherAnalystsList.innerHTML === '') {
+                    bsOtherAnalystsList.innerHTML = '<li style="color: var(--text-secondary); text-align:center;">Sem mais analistas BS para listar.</li>';
+                }
+
+
+                bbOtherAnalystsList.innerHTML = '';
+                currentBbAnalysts.slice(3).forEach(analyst => {
+                    const movement = getMovement(oldBbRanks[analyst.name], analyst.rank);
+                    bbOtherAnalystsList.appendChild(createOtherAnalystListItem(analyst, 'BB', movement));
+                });
+                 if (currentBbAnalysts.length <= 3 && bbOtherAnalystsList.innerHTML === '') {
+                    bbOtherAnalystsList.innerHTML = '<li style="color: var(--text-secondary); text-align:center;">Sem mais analistas BB para listar.</li>';
+                }
+
+
+                previousRankingData = { bsAnalysts: [...currentBsAnalysts], bbAnalysts: [...currentBbAnalysts] };
+                
+                if (data.overallProgress) {
+                    progressFill.style.width = `${data.overallProgress.percentage || 0}%`;
+                    progressText.textContent = `${(data.overallProgress.percentage || 0).toFixed(1)}%`;
+                    if(metaTargetValueEl) metaTargetValueEl.textContent = formatCurrency(data.overallProgress.target);
+                    if(metaCurrentValueEl) metaCurrentValueEl.textContent = formatCurrency(data.overallProgress.current);
+                }
+
+                setTimeout(() => {
+                    document.querySelectorAll('.moved-up, .moved-down, .moved-up-list, .moved-down-list').forEach(el => {
+                        el.classList.remove('moved-up', 'moved-down', 'moved-up-list', 'moved-down-list');
+                    });
+                }, 2500);
+
+                setTimeout(() => {
+                    document.querySelectorAll('.movement-indicator.recent, .movement-indicator-list.recent').forEach(el => {
+                        el.classList.remove('recent');
+                        el.classList.add('stale');
+                    });
+                }, 10000);
+
+            } catch (error) {
+                console.error('Falha ao buscar ou processar dados do ranking:', error);
+                displayError(`Não foi possível carregar o ranking. Verifique a conexão ou tente mais tarde. (${error.message})`);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            setTheme(savedTheme);
+
+            async function startAutoUpdate() {
+                await fetchAndUpdateRankings();
+                setTimeout(startAutoUpdate, 30000);
+            }
+
+            startAutoUpdate();
+        });
+
+    </script>
+</body>
+</html>
