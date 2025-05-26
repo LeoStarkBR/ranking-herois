@@ -55,7 +55,7 @@ async function getRankingData() {
                 totalPoints: 0,
                 // Para nomes de times e avatares, podemos adicionar uma lógica mais complexa
                 // ou simplificar aqui, ou deixar para o front-end mapear
-                teamNameDetail: time === 'BS' ? `Time BS - ${getDynamicTeamName(nomeOriginal)}` : `Time BB - ${getDynamicTeamName(nomeOriginal)}`,
+                
                 avatarClass: getAvatarClass(nomeOriginal, time, 0) // Rank inicial 0, será atualizado
             };
         }
@@ -91,18 +91,6 @@ async function getRankingData() {
     };
 }
 
-// Função auxiliar para nomes de times dinâmicos (simplificado)
-function getDynamicTeamName(analystName) {
-    // Poderia ser mais complexo, talvez com base em outro campo da planilha
-    // ou uma lógica interna. Por ora, um exemplo simples.
-    const teamsPool = ["Guardiões", "Sentinelas", "Gladiadores", "Titãs", "Vanguardas", "Defensores"];
-    // Usa um hash simples do nome para pegar um time "consistentemente aleatório"
-    let hash = 0;
-    for (let i = 0; i < analystName.length; i++) {
-        hash = analystName.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    return teamsPool[Math.abs(hash) % teamsPool.length];
-}
 
 // Função auxiliar para classes de avatar (simplificado)
 function getAvatarClass(analystName, team, rank) {
