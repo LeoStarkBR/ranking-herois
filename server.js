@@ -12,7 +12,7 @@ const { JWT } = require('google-auth-library');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const creds = require('./credentials.json');
+const creds = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
 
 // Configurar o cliente JWT para autenticação
 const serviceAccountAuth = new JWT({
