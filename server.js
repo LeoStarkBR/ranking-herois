@@ -4,13 +4,15 @@ if (!process.env.GOOGLE_SHEET_ID) {
     process.exit(1);
 }
 const express = require('express');
+const fs = require('fs');
+const availableImages = fs.readdirSync('ranking-backend/public/assets');
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 const { JWT } = require('google-auth-library');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const creds = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
+const creds = require('./credentials.json');
 
 // Configurar o cliente JWT para autenticação
 const serviceAccountAuth = new JWT({
@@ -23,6 +25,7 @@ const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID, serviceAccountAut
 
 // Função para buscar e processar dados da planilha
 async function getRankingData() {
+    console.log("Iniciando leitura da planilha...");
     await doc.loadInfo(); // Carrega propriedades do documento e planilhas
     const sheet = doc.sheetsByTitle['Registros']; // Ou use sheetsByIndex[0] se for a primeira
     if (!sheet) {
@@ -67,18 +70,35 @@ async function getRankingData() {
     const bsAnalysts = allAnalysts
         .filter(a => a.team === 'BS')
         .sort((a, b) => b.totalValue - a.totalValue)
-        .map((analyst, index) => ({ ...analyst, rank: index + 1, avatarClass: getAvatarClass(analyst.name, 'BS', index + 1) }));
+        .map((analyst, index) => {
+            const imageName = getImageFilename(analyst.name);
+            return {
+                ...analyst,
+                rank: index + 1,
+                avatarClass: getAvatarClass(analyst.name, analyst.team, index + 1),
+                avatarUrl: `/assets/${imageName}`
+            };
+        });
 
     const bbAnalysts = allAnalysts
         .filter(a => a.team === 'BB')
         .sort((a, b) => b.totalValue - a.totalValue)
-        .map((analyst, index) => ({ ...analyst, rank: index + 1, avatarClass: getAvatarClass(analyst.name, 'BB', index + 1) }));
+        .map((analyst, index) => {
+            const imageName = getImageFilename(analyst.name);
+            return {
+                ...analyst,
+                rank: index + 1,
+                avatarClass: getAvatarClass(analyst.name, analyst.team, index + 1),
+                avatarUrl: `/assets/${imageName}`
+            };
+        });
 
     // Cálculo da meta geral (exemplo: meta de R$500.000,00)
     const totalCampaignValue = allAnalysts.reduce((sum, a) => sum + a.totalValue, 0);
     const campaignTarget = 500000; // Defina sua meta aqui
     const percentage = Math.min(100, (totalCampaignValue / campaignTarget) * 100);
 
+    console.log("Finalizou leitura da planilha.");
     return { 
         bsAnalysts, 
         bbAnalysts, 
@@ -104,6 +124,25 @@ function getAvatarClass(analystName, team, rank) {
     return genericAvatars[Math.abs(hash) % genericAvatars.length];
 }
 
+
+function getImageFilename(heroName) {
+    const normalized = heroName
+        .trim()
+        .toLowerCase()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .replace(/[\s\-]+/g, '_');
+
+    const supportedExtensions = ['jpg', 'jpeg', 'png', 'webp'];
+
+    for (const ext of supportedExtensions) {
+        const filename = `${normalized}.${ext}`;
+        if (availableImages.includes(filename)) {
+            return filename;
+        }
+    }
+
+    return 'default.jpg';
+}
 
 app.get('/api/ranking', async (req, res) => {
     try {

@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let avatarContentHTML = '';
         let avatarContainerClasses = "analyst-avatar-container";
 
-        if (analyst.avatarImageFile) {
-            avatarContentHTML = `<img src="assets/${analyst.avatarImageFile}" alt="${analyst.name}" class="analyst-avatar-image" onerror="this.style.display='none'; this.parentElement.classList.add('${analyst.avatarClass || 'avatar-generic1'}');">`;
+        if (analyst.avatarUrl) {
+            avatarContentHTML = `<img src="${analyst.avatarUrl}" alt="${analyst.name}" class="analyst-avatar-image" onerror="this.style.display='none'; this.parentElement.classList.add('${analyst.avatarClass || 'avatar-generic1'}');">`;
         } else if (analyst.avatarClass) {
             avatarContainerClasses += ` ${analyst.avatarClass}`;
         } else {
