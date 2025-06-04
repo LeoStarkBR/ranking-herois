@@ -21,49 +21,62 @@ const serviceAccountAuth = new JWT({
     scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
 });
 
-const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID, serviceAccountAuth);
+// const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID, serviceAccountAuth);
 
 // Função para buscar e processar dados da planilha
 async function getRankingData() {
-    console.log("Iniciando leitura da planilha...");
-    await doc.loadInfo(); // Carrega propriedades do documento e planilhas
-    const sheet = doc.sheetsByTitle['Registros']; // Ou use sheetsByIndex[0] se for a primeira
-    if (!sheet) {
-        console.error("Planilha 'Registros' não encontrada!");
-        return { bsAnalysts: [], bbAnalysts: [], overallProgress: { current: 0, target: 1, percentage: 0} };
-    }
-    const rows = await sheet.getRows();
+    console.log("📥 Iniciando leitura da planilha...");
 
-    const aggregatedData = {};
+    try {
+        // Autenticação e inicialização do GoogleSpreadsheet
+        const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID);
+        await doc.useServiceAccountAuth({
+            client_email: creds.client_email,
+            private_key: creds.private_key.replace(/\\n/g, '\n')
+        });
+        console.log("🔐 Tentando carregar informações do documento...");
+        await doc.loadInfo();
+        console.log("✅ Documento carregado.");
 
-    rows.forEach(row => {
-        const nomeOriginal = row.get('NomeHeroi');
-        const nome = nomeOriginal?.trim().toLowerCase();
-        // Remover "R$", espaços e trocar vírgula por ponto para converter para número
-        const valorRecuperadoStr = String(row.get('ValorRecuperado') || '0').replace(/[R$\s.]/g, '').replace(',', '.');
-        const valor = parseFloat(valorRecuperadoStr) || 0;
-        
-        const time = String(row.get('Time')).toUpperCase(); // BS ou BB
-        const pontosStr = String(row.get('Pontos') || '0');
-        const pontos = parseInt(pontosStr) || 0;
-
-        if (!nome || !time) return; // Pular linhas incompletas
-
-        if (!aggregatedData[nome]) {
-            aggregatedData[nome] = {
-                name: nomeOriginal,
-                team: time,
-                totalValue: 0,
-                totalPoints: 0,
-                // Para nomes de times e avatares, podemos adicionar uma lógica mais complexa
-                // ou simplificar aqui, ou deixar para o front-end mapear
-                
-                avatarClass: getAvatarClass(nomeOriginal, time, 0) // Rank inicial 0, será atualizado
-            };
+        const sheet = doc.sheetsByTitle['Registros'];
+        if (!sheet) {
+            console.error("❌ Aba 'Registros' não encontrada!");
+            return { bsAnalysts: [], bbAnalysts: [], overallProgress: { current: 0, target: 1, percentage: 0} };
         }
-        aggregatedData[nome].totalValue += valor;
-        aggregatedData[nome].totalPoints += pontos;
-    });
+
+        console.log("📄 Aba 'Registros' localizada. Carregando linhas...");
+        const rows = await sheet.getRows();
+        console.log(`📊 Total de linhas lidas: ${rows.length}`);
+
+        const aggregatedData = {};
+
+        rows.forEach((row, index) => {
+            console.log(`🔍 Processando linha ${index + 1}`);
+            const nomeOriginal = row['NomeHeroi'];
+            const nome = nomeOriginal?.trim().toLowerCase();
+            const valorRecuperadoStr = String(row['ValorRecuperado'] || '0')
+                .replace(/[R$\s.]/g, '')
+                .replace(',', '.');
+            const valor = parseFloat(valorRecuperadoStr) || 0;
+
+            const time = String(row['Time']).toUpperCase(); // BS ou BB
+            const pontosStr = String(row['Pontos'] || '0');
+            const pontos = parseInt(pontosStr) || 0;
+
+            if (!nome || !time) return;
+
+            if (!aggregatedData[nome]) {
+                aggregatedData[nome] = {
+                    name: nomeOriginal,
+                    team: time,
+                    totalValue: 0,
+                    totalPoints: 0,
+                    avatarClass: getAvatarClass(nomeOriginal, time, 0)
+                };
+            }
+            aggregatedData[nome].totalValue += valor;
+            aggregatedData[nome].totalPoints += pontos;
+        });
 
     const allAnalysts = Object.values(aggregatedData);
 
@@ -108,6 +121,10 @@ async function getRankingData() {
             percentage: parseFloat(percentage.toFixed(2))
         }
     };
+    } catch (error) {
+        console.error("Erro ao processar dados da planilha:", error);
+        throw error;
+    }
 }
 
 

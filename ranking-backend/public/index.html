@@ -652,7 +652,7 @@
             else if (analyst.rank === 2) positionBadgeClass = 'silver';
             else if (analyst.rank === 3) positionBadgeClass = 'bronze';
 
-            const pointsHTML = teamType === 'BS' && analyst.totalPoints > 0 ? `<span class="analyst-points">+${analyst.totalPoints} pts</span>` : '';
+            const pointsHTML = analyst.totalPoints > 0 ? `<span class="analyst-points">+${analyst.totalPoints} pts</span>` : '';
             const valueClass = teamType === 'BB' ? 'bb-value' : '';
             // Criação do indicador de movimento
             let avatarIndicator = '';
@@ -687,7 +687,7 @@
             if (movement === 'up') li.classList.add('moved-up-list');
             if (movement === 'down') li.classList.add('moved-down-list');
 
-            const pointsHTML = teamType === 'BS' && analyst.totalPoints > 0 ? `<span class="analyst-points">+${analyst.totalPoints} pts</span>` : '';
+            const pointsHTML = analyst.totalPoints > 0 ? `<span class="analyst-points">+${analyst.totalPoints} pts</span>` : '';
             // Criação do indicador de movimento
             let rankIndicator = '';
             if (movement === 'up' || movement === 'down') {
