@@ -576,18 +576,6 @@
             </aside>
         </div>
         
-        <section class="overall-progress-section">
-            <h3>🚀 Meta Geral da Campanha 🚀</h3>
-            <div class="progress-bar-container">
-                <div id="progress-fill" class="progress-bar-fill" style="width: 0%;">
-                    <!-- O texto agora está em um span separado para melhor controle -->
-                </div>
-                <span id="progress-text" class="progress-bar-text">0%</span>
-            </div>
-            <p style="text-align: center; margin-top: 10px; font-size: 0.9em; color: var(--text-secondary);">
-                Arrecadado: <span id="meta-current-value" style="font-weight: bold;">R$ 0,00</span> / Meta: <span id="meta-target-value" style="font-weight: bold;">R$ 0,00</span>
-            </p>
-        </section>
 
     </div>
 
@@ -626,10 +614,6 @@
         const bsOtherAnalystsList = document.getElementById('bs-other-analysts-list');
         const bbOtherAnalystsList = document.getElementById('bb-other-analysts-list');
         
-        const progressFill = document.getElementById('progress-fill');
-        const progressText = document.getElementById('progress-text');
-        const metaTargetValueEl = document.getElementById('meta-target-value');
-        const metaCurrentValueEl = document.getElementById('meta-current-value');
 
         let previousRankingData = { bsAnalysts: [], bbAnalysts: [] };
 
@@ -788,12 +772,6 @@
 
                 previousRankingData = { bsAnalysts: [...currentBsAnalysts], bbAnalysts: [...currentBbAnalysts] };
                 
-                if (data.overallProgress) {
-                    progressFill.style.width = `${data.overallProgress.percentage || 0}%`;
-                    progressText.textContent = `${(data.overallProgress.percentage || 0).toFixed(1)}%`;
-                    if(metaTargetValueEl) metaTargetValueEl.textContent = formatCurrency(data.overallProgress.target);
-                    if(metaCurrentValueEl) metaCurrentValueEl.textContent = formatCurrency(data.overallProgress.current);
-                }
 
                 setTimeout(() => {
                     document.querySelectorAll('.moved-up, .moved-down, .moved-up-list, .moved-down-list').forEach(el => {
