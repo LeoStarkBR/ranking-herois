@@ -919,7 +919,7 @@
 
             async function startAutoUpdate() {
                 await fetchAndUpdateRankings();
-                setTimeout(startAutoUpdate, 30000);
+                setTimeout(startAutoUpdate, 1200000); //atualiza a cada 20 minutos
             }
 
             startAutoUpdate();
