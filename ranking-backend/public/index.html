@@ -305,6 +305,28 @@
         .top-analysts-panel .sub-panel-title:first-of-type {
             margin-top: 0;
         }
+
+
+        .campaign-legend {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed var(--card-border);
+            border-radius: 12px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .campaign-legend ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 8px;
+        }
+        .campaign-legend li {
+            margin-bottom: 4px;
+        }
+        .campaign-legend strong {
+            color: var(--accent-primary);
+        }
                 
         @media (max-width: 992px) {
             .top-analysts-panel {
@@ -557,6 +579,13 @@
             <!-- Painel Outros Destaques -->
             <aside class="top-analysts-panel">
                 <h3 class="panel-title">🌟 Outros Heróis em Destaque 🌟</h3>
+                <div class="campaign-legend">
+                    <p>🏅 Para conquistar a TV na campanha:</p>
+                    <ul>
+                        <li><strong>Bradesco Seguros:</strong> <span id="meta-bs-value"></span> (mai+jun)</li>
+                        <li><strong>Banco do Brasil:</strong> <span id="meta-bb-value"></span> (mai+jun)</li>
+                    </ul>
+                </div>
                 
                 <div> <!-- Container para a lista BS -->
                     <h4 class="sub-panel-title">Bradesco Seguros - Próximos Heróis</h4>
@@ -613,6 +642,9 @@
         const bbTopAnalystsGrid = document.getElementById('bb-top-analysts-grid');
         const bsOtherAnalystsList = document.getElementById('bs-other-analysts-list');
         const bbOtherAnalystsList = document.getElementById('bb-other-analysts-list');
+
+        const metaBSTarget = 140000;
+        const metaBBTarget = 650000;
         
 
         let previousRankingData = { bsAnalysts: [], bbAnalysts: [] };
@@ -795,6 +827,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme') || 'dark';
             setTheme(savedTheme);
+
+            document.getElementById('meta-bs-value').textContent = formatCurrency(metaBSTarget);
+            document.getElementById('meta-bb-value').textContent = formatCurrency(metaBBTarget);
+
 
             async function startAutoUpdate() {
                 await fetchAndUpdateRankings();
