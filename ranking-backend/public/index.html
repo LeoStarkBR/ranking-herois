@@ -756,9 +756,9 @@
                 <p class="team-name">${analyst.teamNameDetail || `Time ${teamType}`}</p>
                 <p class="negotiated-value ${valueClass}">${formatCurrency(analyst.totalValue)} ${pointsHTML}</p>
                 <div class="progress-container">
-                    <div class="progress-bar" id="progress-bar-${analyst.name.replace(/[^a-zA-Z0-9]/g, '-')}-${teamType}"></div>
+                    <div class="progress-bar"></div>
                 </div>
-                <span class="percent-text" id="percent-text-${analyst.name.replace(/[^a-zA-Z0-9]/g, '-')}-${teamType}"></span>
+                <span class="percent-text"></span>
             `;
             // Força o reflow da animação quando houver movimento
             if (movement === 'up' || movement === 'down') {
@@ -773,9 +773,9 @@
             const individualTarget = teamType === 'BS' ? 170000 : 650000;
             // Calcula porcentagem, limitando a 100%
             let percent = Math.min((analyst.totalValue / individualTarget) * 100, 100);
-            // Ajusta barra e texto
-            const barEl = document.getElementById(`progress-bar-${analyst.name.replace(/[^a-zA-Z0-9]/g, '-')}-${teamType}`);
-            const textEl = document.getElementById(`percent-text-${analyst.name.replace(/[^a-zA-Z0-9]/g, '-')}-${teamType}`);
+            // Como o article ainda não está no DOM, usamos querySelector dentro do próprio elemento
+            const barEl = article.querySelector('.progress-bar');
+            const textEl = article.querySelector('.percent-text');
             if (barEl) barEl.style.width = percent.toFixed(1) + '%';
             if (textEl) textEl.textContent = `${percent.toFixed(1)}%`;
             return article;

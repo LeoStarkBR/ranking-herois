@@ -83,7 +83,21 @@ document.addEventListener('DOMContentLoaded', () => {
             <h3 class="analyst-name">${analyst.name}</h3>
             <p class="team-name">${analyst.teamNameDetail || `Time ${teamType}`}</p>
             <p class="negotiated-value ${valueClass}">${formatCurrency(analyst.totalValue)} ${pointsHTML}</p>
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            <span class="percent-text"></span>
         `;
+        // Barra de progresso individual
+        // Define meta individual conforme o time: 170000 para BS, 650000 para BB
+        const individualTarget = teamType === 'BS' ? 170000 : 650000;
+        // Calcula porcentagem, limitando a 100%
+        const percent = Math.min((analyst.totalValue / individualTarget) * 100, 100);
+        // Busca elementos diretamente dentro do article
+        const barEl = article.querySelector('.progress-bar');
+        const textEl = article.querySelector('.percent-text');
+        if (barEl) barEl.style.width = percent.toFixed(1) + '%';
+        if (textEl) textEl.textContent = `${percent.toFixed(1)}%`;
         return article;
     }
 
