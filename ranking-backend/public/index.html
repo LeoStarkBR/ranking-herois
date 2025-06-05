@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,7 +35,8 @@
             --accent-primary: #2563eb;
             --accent-secondary: #059669;
             --accent-gold: #d97706;
-            --progress-bar-text-color: white; /* Pode ser ajustado para preto no light mode se o fundo da barra for claro */
+            --progress-bar-text-color: white;
+            /* Pode ser ajustado para preto no light mode se o fundo da barra for claro */
             --accent-primary-rgb: 37, 99, 235;
         }
 
@@ -75,9 +77,9 @@
             background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
-        
+
         .theme-switcher {
             position: absolute;
             top: 10px;
@@ -102,8 +104,9 @@
             transform: translateY(-2px);
             background-color: rgba(var(--accent-primary-rgb), 0.15);
         }
+
         body.light-mode #theme-toggle-button:hover {
-             background-color: rgba(var(--accent-primary-rgb), 0.1);
+            background-color: rgba(var(--accent-primary-rgb), 0.1);
         }
 
         .main-content {
@@ -114,7 +117,9 @@
             margin-top: 20px;
         }
 
-        .ranking-section, .top-analysts-panel, .overall-progress-section {
+        .ranking-section,
+        .top-analysts-panel,
+        .overall-progress-section {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 16px;
@@ -125,17 +130,22 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
         }
 
-        .ranking-section:hover, .top-analysts-panel:hover, .overall-progress-section:hover {
+        .ranking-section:hover,
+        .top-analysts-panel:hover,
+        .overall-progress-section:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 40px 0 rgba(0,0,0,0.4);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
         }
-        body.light-mode .ranking-section:hover, 
-        body.light-mode .top-analysts-panel:hover, 
+
+        body.light-mode .ranking-section:hover,
+        body.light-mode .top-analysts-panel:hover,
         body.light-mode .overall-progress-section:hover {
-            box-shadow: 0 12px 40px 0 rgba(0,0,0,0.15);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.15);
         }
-        
-        .ranking-section h2, .top-analysts-panel .panel-title, .overall-progress-section h3 {
+
+        .ranking-section h2,
+        .top-analysts-panel .panel-title,
+        .overall-progress-section h3 {
             font-size: 1.8rem;
             font-weight: 600;
             margin-bottom: 20px;
@@ -144,7 +154,7 @@
             color: var(--text-primary);
             transition: border-color 0.3s ease, color 0.3s ease;
         }
-        
+
         .ranking-section.bb h2 {
             border-bottom-color: var(--accent-gold);
         }
@@ -164,20 +174,22 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            position: relative; /* Necessário para o position-badge e movement-indicator */
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            /* Necessário para o position-badge e movement-indicator */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: transform 0.2s ease-in-out, background-color 0.3s ease, border-color 0.3s ease;
         }
+
         body.light-mode .analyst-card {
             background: rgba(0, 0, 0, 0.03);
             border: 1px solid rgba(0, 0, 0, 0.08);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         }
 
         .analyst-card:hover {
             transform: scale(1.03);
         }
-        
+
         .analyst-avatar-container {
             width: 90px;
             height: 90px;
@@ -186,9 +198,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative; /* Necessário para o position-badge e movement-indicator */
-            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            position: relative;
+            /* Necessário para o position-badge e movement-indicator */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
         }
+
         .analyst-avatar-container img.analyst-avatar-image {
             position: absolute;
             top: 0;
@@ -199,28 +213,50 @@
             border-radius: 50%;
             z-index: 0;
         }
+
         body.light-mode .analyst-avatar-container {
-            box-shadow: 0 0 15px rgba(0,0,0,0.15);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
         }
-        
-        .avatar-bs { background-image: linear-gradient(135deg, #0ea5e9, #22d3ee); }
-        .avatar-bb { background-image: linear-gradient(135deg, #f59e0b, #fbbf24); }
-        .avatar-generic1 { background-image: linear-gradient(135deg, #ec4899, #f472b6); }
-        .avatar-generic2 { background-image: linear-gradient(135deg, #8b5cf6, #a78bfa); }
-        .avatar-generic3 { background-image: linear-gradient(135deg, #10b981, #34d399); }
-        .avatar-generic4 { background-image: linear-gradient(135deg, #ef4444, #f87171); }
+
+        .avatar-bs {
+            background-image: linear-gradient(135deg, #0ea5e9, #22d3ee);
+        }
+
+        .avatar-bb {
+            background-image: linear-gradient(135deg, #f59e0b, #fbbf24);
+        }
+
+        .avatar-generic1 {
+            background-image: linear-gradient(135deg, #ec4899, #f472b6);
+        }
+
+        .avatar-generic2 {
+            background-image: linear-gradient(135deg, #8b5cf6, #a78bfa);
+        }
+
+        .avatar-generic3 {
+            background-image: linear-gradient(135deg, #10b981, #34d399);
+        }
+
+        .avatar-generic4 {
+            background-image: linear-gradient(135deg, #ef4444, #f87171);
+        }
 
         .analyst-avatar-container::before {
             content: '';
             position: absolute;
-            top: -5px; left: -5px; right: -5px; bottom: -5px;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
             border-radius: 50%;
             border: 2px solid var(--card-border);
             opacity: 0.7;
             transition: border-color 0.3s ease;
         }
+
         body.light-mode .analyst-avatar-container::before {
-            border: 2px solid rgba(0,0,0,0.1);
+            border: 2px solid rgba(0, 0, 0, 0.1);
         }
 
         .position-badge {
@@ -237,19 +273,33 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
             border: 2px solid white;
-            z-index: 1; /* Para ficar sobre outros elementos do avatar */
+            z-index: 1;
+            /* Para ficar sobre outros elementos do avatar */
             transition: background-color 0.3s ease, border-color 0.3s ease;
         }
+
         body.light-mode .position-badge {
-            border: 2px solid #f0f4f8; /* Ajuste para contraste no modo claro */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            border: 2px solid #f0f4f8;
+            /* Ajuste para contraste no modo claro */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
         }
 
-        .position-badge.gold { background-color: var(--accent-gold); }
-        .position-badge.silver { background-color: #a0aec0; } /* Usando uma cor fixa para prata */
-        .position-badge.bronze { background-color: #cd7f32; } /* Usando uma cor fixa para bronze */
+        .position-badge.gold {
+            background-color: var(--accent-gold);
+        }
+
+        .position-badge.silver {
+            background-color: #a0aec0;
+        }
+
+        /* Usando uma cor fixa para prata */
+        .position-badge.bronze {
+            background-color: #cd7f32;
+        }
+
+        /* Usando uma cor fixa para bronze */
 
         .analyst-name {
             font-size: 1.25rem;
@@ -273,9 +323,11 @@
             color: var(--accent-secondary);
             transition: color 0.3s ease;
         }
+
         .negotiated-value.bb-value {
-             color: var(--accent-gold);
+            color: var(--accent-gold);
         }
+
         .analyst-points {
             font-size: 0.85em;
             color: var(--accent-primary);
@@ -283,6 +335,7 @@
             font-weight: 500;
             opacity: 0.9;
         }
+
         body.light-mode .analyst-points {
             color: var(--accent-primary);
         }
@@ -292,7 +345,7 @@
         .top-analysts-panel {
             grid-column: span 2;
         }
-        
+
         .top-analysts-panel .sub-panel-title {
             font-size: 1.3rem;
             font-weight: 600;
@@ -302,6 +355,7 @@
             padding-bottom: 5px;
             border-bottom: 1px solid var(--card-border);
         }
+
         .top-analysts-panel .sub-panel-title:first-of-type {
             margin-top: 0;
         }
@@ -316,6 +370,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(8px);
         }
+
         .styled-competition-card h4 {
             font-size: 1.4rem;
             font-weight: 600;
@@ -323,17 +378,20 @@
             margin-bottom: 10px;
             text-align: center;
         }
+
         .styled-competition-card .competition-description {
             font-size: 1rem;
             color: var(--text-secondary);
             margin-bottom: 15px;
             text-align: center;
         }
+
         .styled-competition-card .team-goals {
             display: flex;
             justify-content: space-around;
             margin-bottom: 10px;
         }
+
         .styled-competition-card .team-goal {
             text-align: center;
             padding: 10px 15px;
@@ -341,42 +399,52 @@
             background: rgba(0, 0, 0, 0.05);
             transition: background-color 0.3s ease;
         }
+
         .styled-competition-card .bs-goal {
             border: 2px solid var(--accent-primary);
         }
+
         .styled-competition-card .bb-goal {
             border: 2px solid var(--accent-gold);
         }
+
         .styled-competition-card .team-goal:hover {
             background: rgba(255, 255, 255, 0.1);
         }
+
         .styled-competition-card .team-goal strong {
             display: block;
             margin-bottom: 5px;
             color: var(--text-primary);
         }
+
         .styled-competition-card .goal-value {
             font-size: 1.2rem;
             font-weight: 600;
             color: var(--text-primary);
         }
+
         .styled-competition-card .competition-note {
             font-size: 0.85rem;
             color: var(--text-secondary);
             text-align: center;
             margin-top: 10px;
         }
-                
+
         @media (max-width: 992px) {
             .top-analysts-panel {
                 grid-column: span 1;
             }
+
             .theme-switcher {
                 position: static;
                 margin-bottom: 15px;
                 text-align: center;
             }
-            header h1 { font-size: 2.2rem; }
+
+            header h1 {
+                font-size: 2.2rem;
+            }
         }
 
         .top-analyst-list {
@@ -392,8 +460,10 @@
             border-bottom: 1px solid var(--card-border);
             font-size: 0.95rem;
             transition: border-color 0.3s ease;
-            position: relative; /* Para indicadores de movimento na lista */
+            position: relative;
+            /* Para indicadores de movimento na lista */
         }
+
         .top-analyst-item:last-child {
             border-bottom: none;
         }
@@ -401,17 +471,21 @@
         .top-analyst-item .rank {
             font-weight: 600;
             color: var(--accent-primary);
-            min-width: 30px; /* Para alinhar os ranks */
-            display: flex; /* Para alinhar indicador com o rank */
+            min-width: 30px;
+            /* Para alinhar os ranks */
+            display: flex;
+            /* Para alinhar indicador com o rank */
             align-items: center;
             transition: color 0.3s ease;
         }
+
         .top-analyst-item .name {
             flex-grow: 1;
             margin-left: 10px;
             color: var(--text-primary);
             transition: color 0.3s ease;
         }
+
         .top-analyst-item .value {
             font-weight: 500;
             color: var(--text-secondary);
@@ -420,12 +494,13 @@
         }
 
         .overall-progress-section {
-           grid-column: 1 / -1; /* Ocupa toda a largura da grid */
+            grid-column: 1 / -1;
+            /* Ocupa toda a largura da grid */
         }
-        
+
         .progress-bar-container {
             width: 100%;
-            background-color: rgba(0,0,0,0.1);
+            background-color: rgba(0, 0, 0, 0.1);
             border-radius: 25px;
             height: 30px;
             margin-top: 10px;
@@ -434,20 +509,22 @@
             border: 1px solid var(--card-border);
             transition: background-color 0.3s ease, border-color 0.3s ease;
         }
+
         body.light-mode .progress-bar-container {
-            background-color: rgba(0,0,0,0.05);
+            background-color: rgba(0, 0, 0, 0.05);
         }
 
         .progress-bar-fill {
             height: 100%;
-            border-radius: 25px; /* Para cantos arredondados mesmo com width baixo */
+            border-radius: 25px;
+            /* Para cantos arredondados mesmo com width baixo */
             background-image: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
             transition: width 0.8s ease-out, background-image 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        
+
         .progress-bar-text {
             position: absolute;
             width: 100%;
@@ -460,51 +537,64 @@
             font-weight: 600;
             font-size: 0.9rem;
             color: var(--progress-bar-text-color);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
             transition: color 0.3s ease;
         }
+
         body.light-mode .progress-bar-text {
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         /* === CSS PARA ANIMAÇÕES DE RANKING === */
-        .movement-indicator, .movement-indicator-list {
-            font-size: 1em; /* Ajustado para não ser muito grande */
+        .movement-indicator,
+        .movement-indicator-list {
+            font-size: 1em;
+            /* Ajustado para não ser muito grande */
             animation: pulse 1.5s infinite ease-in-out;
-            display: inline-block; /* Para que o margin-left funcione */
-            line-height: 1; /* Para alinhar verticalmente melhor com o texto */
+            display: inline-block;
+            /* Para que o margin-left funcione */
+            line-height: 1;
+            /* Para alinhar verticalmente melhor com o texto */
         }
 
         /* Indicador no Card (dentro do avatar) */
         .analyst-avatar-container .movement-indicator {
             position: absolute;
-            top: 5px; 
-            left: 5px; 
-            background-color: rgba(0,0,0,0.5);
+            top: 5px;
+            left: 5px;
+            background-color: rgba(0, 0, 0, 0.5);
             color: white;
             border-radius: 50%;
-            width: 22px; /* Levemente maior */
-            height: 22px; /* Levemente maior */
+            width: 22px;
+            /* Levemente maior */
+            height: 22px;
+            /* Levemente maior */
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8em; /* Menor para caber no círculo */
-            z-index: 2; /* Acima do ::before do avatar */
-            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            font-size: 0.8em;
+            /* Menor para caber no círculo */
+            z-index: 2;
+            /* Acima do ::before do avatar */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
-        
+
         /* Indicador na Lista (ao lado do rank ou nome) */
         .top-analyst-item .rank .movement-indicator-list,
         .top-analyst-item .name .movement-indicator-list {
             margin-left: 6px;
         }
 
-        .movement-indicator.up, .movement-indicator-list.up {
-            color: var(--accent-secondary); /* Verde */
+        .movement-indicator.up,
+        .movement-indicator-list.up {
+            color: var(--accent-secondary);
+            /* Verde */
         }
 
-        .movement-indicator.down, .movement-indicator-list.down {
-            color: #ef4444; /* Vermelho (usando uma cor fixa de exemplo) */
+        .movement-indicator.down,
+        .movement-indicator-list.down {
+            color: #ef4444;
+            /* Vermelho (usando uma cor fixa de exemplo) */
         }
 
         .movement-indicator.recent,
@@ -521,50 +611,102 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.25); opacity: 0.8; }
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.25);
+                opacity: 0.8;
+            }
         }
 
         /* Destaque para itens que mudaram de posição */
-        .analyst-card.moved-up, 
+        .analyst-card.moved-up,
         .analyst-card.moved-down {
             animation: highlight-change-card 2s ease-out;
         }
-        .top-analyst-item.moved-up-list, /* Aplicar à linha inteira do item da lista */
+
+        .top-analyst-item.moved-up-list,
+        /* Aplicar à linha inteira do item da lista */
         .top-analyst-item.moved-down-list {
             animation: highlight-change-list-item 2s ease-out;
         }
 
-        @keyframes highlight-change-card { /* Para os cards */
-            0% { box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 0px rgba(var(--accent-primary-rgb), 0); }
-            25% { box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 4px rgba(var(--accent-primary-rgb), 0.4); }
-            100% { box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 0px rgba(var(--accent-primary-rgb), 0); }
+        @keyframes highlight-change-card {
+
+            /* Para os cards */
+            0% {
+                box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 0px rgba(var(--accent-primary-rgb), 0);
+            }
+
+            25% {
+                box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 4px rgba(var(--accent-primary-rgb), 0.4);
+            }
+
+            100% {
+                box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 0px rgba(var(--accent-primary-rgb), 0);
+            }
         }
-        body.light-mode .analyst-card.moved-up, 
+
+        body.light-mode .analyst-card.moved-up,
         body.light-mode .analyst-card.moved-down {
-             animation: highlight-change-card-light 2s ease-out;
+            animation: highlight-change-card-light 2s ease-out;
         }
+
         @keyframes highlight-change-card-light {
-            0% { box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 0px rgba(var(--accent-primary-rgb), 0); }
-            25% { box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 4px rgba(var(--accent-primary-rgb), 0.2); }
-            100% { box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 0px rgba(var(--accent-primary-rgb), 0); }
+            0% {
+                box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 0px rgba(var(--accent-primary-rgb), 0);
+            }
+
+            25% {
+                box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 4px rgba(var(--accent-primary-rgb), 0.2);
+            }
+
+            100% {
+                box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 0px rgba(var(--accent-primary-rgb), 0);
+            }
         }
 
 
-        @keyframes highlight-change-list-item { /* Para os itens da lista */
-            0% { background-color: transparent; }
-            25% { background-color: rgba(var(--accent-primary-rgb), 0.1); }
-            100% { background-color: transparent; }
+        @keyframes highlight-change-list-item {
+
+            /* Para os itens da lista */
+            0% {
+                background-color: transparent;
+            }
+
+            25% {
+                background-color: rgba(var(--accent-primary-rgb), 0.1);
+            }
+
+            100% {
+                background-color: transparent;
+            }
         }
-        body.light-mode .top-analyst-item.moved-up-list, 
+
+        body.light-mode .top-analyst-item.moved-up-list,
         body.light-mode .top-analyst-item.moved-down-list {
             animation: highlight-change-list-item-light 2s ease-out;
         }
+
         @keyframes highlight-change-list-item-light {
-            0% { background-color: transparent; }
-            25% { background-color: rgba(var(--accent-primary-rgb), 0.05); }
-            100% { background-color: transparent; }
+            0% {
+                background-color: transparent;
+            }
+
+            25% {
+                background-color: rgba(var(--accent-primary-rgb), 0.05);
+            }
+
+            100% {
+                background-color: transparent;
+            }
         }
+
         /* === FIM CSS PARA ANIMAÇÕES DE RANKING === */
 
         /* Suavizar remoções dos elementos com animação */
@@ -588,13 +730,16 @@
             position: relative;
             overflow: hidden;
         }
+
         .analyst-card .progress-bar {
             height: 100%;
-            width: 0%; /* Será ajustado pelo JS */
+            width: 0%;
+            /* Será ajustado pelo JS */
             background-image: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
             border-radius: 4px;
             transition: width 1s ease-out;
         }
+
         .analyst-card .percent-text {
             display: block;
             margin-top: 4px;
@@ -605,6 +750,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -643,7 +789,7 @@
             <!-- Painel Outros Destaques -->
             <aside class="top-analysts-panel">
                 <h3 class="panel-title">🌟 Outros Heróis em Destaque 🌟</h3>
-                
+
                 <div> <!-- Container para a lista BS -->
                     <h4 class="sub-panel-title">Bradesco Seguros - Próximos Heróis</h4>
                     <ul class="top-analyst-list" id="bs-other-analysts-list">
@@ -675,7 +821,7 @@
                 </div>
             </aside>
         </div>
-        
+
 
     </div>
 
@@ -687,7 +833,7 @@
         const body = document.body;
         const loadingMessage = document.getElementById('loading-message');
         const errorMessageArea = document.getElementById('error-message-area');
-        
+
         function setTheme(theme) {
             if (theme === 'light') {
                 body.classList.add('light-mode');
@@ -714,9 +860,9 @@
         const bsOtherAnalystsList = document.getElementById('bs-other-analysts-list');
         const bbOtherAnalystsList = document.getElementById('bb-other-analysts-list');
 
-        const metaBSTarget = 140000;
-        const metaBBTarget = 650000;
-        
+        const metaBSTarget = 150000;
+        const metaBBTarget = 600000;
+
 
         let previousRankingData = { bsAnalysts: [], bbAnalysts: [] };
 
@@ -733,7 +879,7 @@
 
             if (movement === 'up') article.classList.add('moved-up');
             if (movement === 'down') article.classList.add('moved-down');
-            
+
             let positionBadgeClass = '';
             if (analyst.rank === 1) positionBadgeClass = 'gold';
             else if (analyst.rank === 2) positionBadgeClass = 'silver';
@@ -770,7 +916,7 @@
             }
             // Barra de progresso individual
             // Define meta individual conforme o time: 170000 para BS, 650000 para BB
-            const individualTarget = teamType === 'BS' ? 170000 : 650000;
+            const individualTarget = teamType === 'BS' ? 150000 : 600000;
             // Calcula porcentagem, limitando a 100%
             let percent = Math.min((analyst.totalValue / individualTarget) * 100, 100);
             // Como o article ainda não está no DOM, usamos querySelector dentro do próprio elemento
@@ -803,14 +949,14 @@
             `;
             return li;
         }
-        
+
         function getMovement(oldRank, newRank) {
-            if (oldRank === undefined) return 'new'; 
+            if (oldRank === undefined) return 'new';
             if (newRank < oldRank) return 'up';
             if (newRank > oldRank) return 'down';
             return 'stay';
         }
-        
+
         function displayError(message) {
             if (errorMessageArea) {
                 errorMessageArea.textContent = message;
@@ -825,7 +971,7 @@
             if (errorMessageArea) errorMessageArea.style.display = 'none';
 
             try {
-                
+
                 const apiUrl = '/api/ranking'; // Ou 'ranking_data.json' ou 'https://seu-backend.onrender.com/api/ranking'
                 const response = await fetch(apiUrl);
 
@@ -853,7 +999,7 @@
                     const movement = getMovement(oldBsRanks[analyst.name], analyst.rank);
                     bsTopAnalystsGrid.appendChild(createAnalystCard(analyst, 'BS', movement));
                 });
-                 if (currentBsAnalysts.length === 0 && bsTopAnalystsGrid.innerHTML === '') {
+                if (currentBsAnalysts.length === 0 && bsTopAnalystsGrid.innerHTML === '') {
                     bsTopAnalystsGrid.innerHTML = '<p style="color: var(--text-secondary); text-align:center; grid-column: 1 / -1;">Nenhum analista BS encontrado.</p>';
                 }
 
@@ -872,7 +1018,7 @@
                     const movement = getMovement(oldBsRanks[analyst.name], analyst.rank);
                     bsOtherAnalystsList.appendChild(createOtherAnalystListItem(analyst, 'BS', movement));
                 });
-                 if (currentBsAnalysts.length <= 3 && bsOtherAnalystsList.innerHTML === '') {
+                if (currentBsAnalysts.length <= 3 && bsOtherAnalystsList.innerHTML === '') {
                     bsOtherAnalystsList.innerHTML = '<li style="color: var(--text-secondary); text-align:center;">Sem mais analistas BS para listar.</li>';
                 }
 
@@ -882,13 +1028,13 @@
                     const movement = getMovement(oldBbRanks[analyst.name], analyst.rank);
                     bbOtherAnalystsList.appendChild(createOtherAnalystListItem(analyst, 'BB', movement));
                 });
-                 if (currentBbAnalysts.length <= 3 && bbOtherAnalystsList.innerHTML === '') {
+                if (currentBbAnalysts.length <= 3 && bbOtherAnalystsList.innerHTML === '') {
                     bbOtherAnalystsList.innerHTML = '<li style="color: var(--text-secondary); text-align:center;">Sem mais analistas BB para listar.</li>';
                 }
 
 
                 previousRankingData = { bsAnalysts: [...currentBsAnalysts], bbAnalysts: [...currentBbAnalysts] };
-                
+
 
                 setTimeout(() => {
                     document.querySelectorAll('.moved-up, .moved-down, .moved-up-list, .moved-down-list').forEach(el => {
@@ -927,4 +1073,5 @@
 
     </script>
 </body>
+
 </html>

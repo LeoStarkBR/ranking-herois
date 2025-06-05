@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         // Barra de progresso individual
         // Define meta individual conforme o time: 170000 para BS, 650000 para BB
-        const individualTarget = teamType === 'BS' ? 170000 : 650000;
+        const individualTarget = teamType === 'BS' ? 150000 : 600000;
         // Calcula porcentagem, limitando a 100%
         const percent = Math.min((analyst.totalValue / individualTarget) * 100, 100);
         // Busca elementos diretamente dentro do article
