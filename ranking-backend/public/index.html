@@ -769,8 +769,8 @@
                 });
             }
             // Barra de progresso individual
-            // Define meta individual (exemplo: R$100.000)
-            const individualTarget = 100000;
+            // Define meta individual conforme o time: 170000 para BS, 650000 para BB
+            const individualTarget = teamType === 'BS' ? 170000 : 650000;
             // Calcula porcentagem, limitando a 100%
             let percent = Math.min((analyst.totalValue / individualTarget) * 100, 100);
             // Ajusta barra e texto
