@@ -578,6 +578,31 @@
             transform: translateY(10px);
         }
 
+        /* Barra de progresso individual dentro do analyst-card */
+        .analyst-card .progress-container {
+            width: 100%;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            margin-top: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        .analyst-card .progress-bar {
+            height: 100%;
+            width: 0%; /* Será ajustado pelo JS */
+            background-image: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 4px;
+            transition: width 1s ease-out;
+        }
+        .analyst-card .percent-text {
+            display: block;
+            margin-top: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-align: right;
+        }
     </style>
 </head>
 <body>
@@ -730,6 +755,10 @@
                 <h3 class="analyst-name">${analyst.name}</h3>
                 <p class="team-name">${analyst.teamNameDetail || `Time ${teamType}`}</p>
                 <p class="negotiated-value ${valueClass}">${formatCurrency(analyst.totalValue)} ${pointsHTML}</p>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar-${analyst.name.replace(/[^a-zA-Z0-9]/g, '-')}-${teamType}"></div>
+                </div>
+                <span class="percent-text" id="percent-text-${analyst.name.replace(/[^a-zA-Z0-9]/g, '-')}-${teamType}"></span>
             `;
             // Força o reflow da animação quando houver movimento
             if (movement === 'up' || movement === 'down') {
@@ -739,6 +768,16 @@
                     article.classList.add(`moved-${movement}`);
                 });
             }
+            // Barra de progresso individual
+            // Define meta individual (exemplo: R$100.000)
+            const individualTarget = 100000;
+            // Calcula porcentagem, limitando a 100%
+            let percent = Math.min((analyst.totalValue / individualTarget) * 100, 100);
+            // Ajusta barra e texto
+            const barEl = document.getElementById(`progress-bar-${analyst.name.replace(/[^a-zA-Z0-9]/g, '-')}-${teamType}`);
+            const textEl = document.getElementById(`percent-text-${analyst.name.replace(/[^a-zA-Z0-9]/g, '-')}-${teamType}`);
+            if (barEl) barEl.style.width = percent.toFixed(1) + '%';
+            if (textEl) textEl.textContent = `${percent.toFixed(1)}%`;
             return article;
         }
 
