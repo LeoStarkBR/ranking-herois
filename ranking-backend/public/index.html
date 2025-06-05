@@ -307,25 +307,64 @@
         }
 
 
-        .campaign-legend {
-            margin-top: 15px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px dashed var(--card-border);
+        .styled-competition-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--card-border);
             border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+        }
+        .styled-competition-card h4 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
             text-align: center;
-            font-size: 0.95rem;
         }
-        .campaign-legend ul {
-            list-style: none;
-            padding-left: 0;
-            margin-top: 8px;
+        .styled-competition-card .competition-description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            text-align: center;
         }
-        .campaign-legend li {
-            margin-bottom: 4px;
+        .styled-competition-card .team-goals {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 10px;
         }
-        .campaign-legend strong {
-            color: var(--accent-primary);
+        .styled-competition-card .team-goal {
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease;
+        }
+        .styled-competition-card .bs-goal {
+            border: 2px solid var(--accent-primary);
+        }
+        .styled-competition-card .bb-goal {
+            border: 2px solid var(--accent-gold);
+        }
+        .styled-competition-card .team-goal:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .styled-competition-card .team-goal strong {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+        .styled-competition-card .goal-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .styled-competition-card .competition-note {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-top: 10px;
         }
                 
         @media (max-width: 992px) {
@@ -579,13 +618,6 @@
             <!-- Painel Outros Destaques -->
             <aside class="top-analysts-panel">
                 <h3 class="panel-title">🌟 Outros Heróis em Destaque 🌟</h3>
-                <div class="campaign-legend">
-                    <p>🏅 Para conquistar a TV na campanha:</p>
-                    <ul>
-                        <li><strong>Bradesco Seguros:</strong> <span id="meta-bs-value"></span> (mai+jun)</li>
-                        <li><strong>Banco do Brasil:</strong> <span id="meta-bb-value"></span> (mai+jun)</li>
-                    </ul>
-                </div>
                 
                 <div> <!-- Container para a lista BS -->
                     <h4 class="sub-panel-title">Bradesco Seguros - Próximos Heróis</h4>
@@ -601,6 +633,20 @@
                     <ul class="top-analyst-list" id="bb-other-analysts-list">
                         <!-- Lista de outros analistas BB será inserida aqui pelo JS -->
                     </ul>
+                </div>
+
+                <div class="styled-competition-card">
+                    <h4>🏅 Competição da Campanha 🏅</h4>
+                    <p class="competition-description">Veja a meta atual e quem está liderando:</p>
+                    <div class="team-goals">
+                        <div class="team-goal bs-goal">
+                            <strong>Bradesco Seguros:</strong> <span id="meta-bs-value" class="goal-value"></span>
+                        </div>
+                        <div class="team-goal bb-goal">
+                            <strong>Banco do Brasil:</strong> <span id="meta-bb-value" class="goal-value"></span>
+                        </div>
+                    </div>
+                    <p class="competition-note">Valores acumulados em Maio e Junho.</p>
                 </div>
             </aside>
         </div>
