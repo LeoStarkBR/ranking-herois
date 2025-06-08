@@ -834,6 +834,76 @@
                 font-size: 3rem;
             }
         }
+
+        /* Ajustes para TVs Full HD (32") e telas grandes */
+        @media (min-width: 1600px) {
+          html {
+            font-size: 22px;
+          }
+          body {
+            padding: 10px !important;
+            overflow: hidden !important;
+          }
+          .container {
+            max-width: 1920px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+          }
+          header h1 {
+            font-size: 3.4rem;
+          }
+          .main-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            flex: 1;
+            overflow: hidden;
+          }
+          .ranking-section, .top-analysts-panel {
+            padding: 18px;
+          }
+          .analyst-cards-grid {
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 18px;
+          }
+          .analyst-card {
+            padding: 18px;
+            font-size: 1.1rem;
+          }
+          .analyst-card .analyst-name {
+            font-size: 1.6rem;
+          }
+          .analyst-card .team-name,
+          .analyst-card .negotiated-value {
+            font-size: 1.2rem;
+          }
+          .top-analyst-item .rank,
+          .top-analyst-item .name,
+          .top-analyst-item .value {
+            font-size: 1.1rem;
+          }
+          /* Remove qualquer possibilidade de scroll */
+          html, body, .main-content, .container {
+            overflow: hidden !important;
+            height: 100vh;
+          }
+        }
+
+        /* Garantia geral (fallback para telas médias/pequenas) */
+        @media (max-width: 1599px) {
+          html {
+            font-size: 18px;
+          }
+          .main-content {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 18px;
+          }
+          .analyst-cards-grid {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+          }
+        }
     </style>
 </head>
 
