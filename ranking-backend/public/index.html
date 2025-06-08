@@ -834,141 +834,139 @@
                 font-size: 3rem;
             }
         }
+
+        @media (min-width: 1600px) {
+            html {
+                font-size: 20px;
+            }
+            body {
+                padding: 0;
+                overflow: hidden;
+                height: 100vh;
+            }
+            .container {
+                max-width: 1920px;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                padding: 0;
+            }
+            header {
+                margin-bottom: 5px;
+                flex-shrink: 0;
+            }
+            header h1 {
+                font-size: 3.5rem;
+                margin-bottom: 8px;
+            }
+            .main-content {
+                grid-template-columns: 1.2fr 1.2fr 0.9fr;
+                gap: 18px;
+                flex-grow: 1;
+                overflow: hidden;
+                padding-bottom: 0;
+            }
+            .ranking-section, .top-analysts-panel {
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                overflow-y: auto;
+                overflow-x: hidden;
+                min-height: 0;
+            }
+            .ranking-section h2,
+            .top-analysts-panel .panel-title {
+                font-size: 2.1rem;
+                margin-bottom: 10px;
+                flex-shrink: 0;
+            }
+            .analyst-cards-grid {
+                display: flex;
+                justify-content: space-between;
+                align-items: stretch;
+                gap: 10px;
+                width: 100%;
+                flex-wrap: nowrap;
+                flex-shrink: 0;
+            }
+            .analyst-card {
+                flex: 1 1 0;
+                min-width: 160px;
+                max-width: 240px;
+                padding: 13px;
+                font-size: 1.05em;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            .analyst-avatar-container {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 8px;
+                flex-shrink: 0;
+            }
+            .position-badge {
+                width: 38px;
+                height: 38px;
+                font-size: 1rem;
+            }
+            .analyst-name {
+                font-size: 1.3em;
+                margin-bottom: 4px;
+            }
+            .team-name {
+                font-size: 1em;
+                margin-bottom: 6px;
+            }
+            .negotiated-value {
+                font-size: 1.15em;
+                margin-bottom: 4px;
+            }
+            .analyst-points {
+                font-size: 0.8em;
+            }
+            .analyst-card .progress-container {
+                margin-top: auto;
+                margin-bottom: 4px;
+                flex-shrink: 0;
+            }
+            .analyst-card .percent-text {
+                font-size: 0.8em;
+                flex-shrink: 0;
+            }
+            .top-analysts-panel .sub-panel-title {
+                font-size: 1.4rem;
+                flex-shrink: 0;
+            }
+            .top-analyst-item {
+                padding: 7px 0;
+                flex-shrink: 0;
+            }
+            .top-analyst-item .rank,
+            .top-analyst-item .name,
+            .top-analyst-item .value {
+                font-size: 1rem;
+            }
+            .styled-competition-card {
+                padding: 10px;
+                margin-top: 12px;
+                flex-shrink: 0;
+            }
+            .styled-competition-card h4 {
+                font-size: 1.5rem;
+            }
+            .styled-competition-card .competition-description {
+                font-size: 1rem;
+            }
+            .styled-competition-card .goal-value {
+                font-size: 1.1rem;
+            }
+            .styled-competition-card .competition-note {
+                font-size: 0.9rem;
+            }
+        }
     </style>
-    /* Ajustes específicos para TV Full HD e telas grandes */
-    @media (min-width: 1600px) { /* Ponto de quebra para layout de TV */
-        html {
-            font-size: 18px;
-        }
-
-        body {
-            padding: 15px;
-            overflow: hidden;
-        }
-
-        .container {
-            max-width: 1920px;
-            height: calc(100vh - 30px);
-            overflow: hidden;
-        }
-
-        header {
-            margin-bottom: 15px;
-        }
-
-        header h1 {
-            font-size: 3rem;
-        }
-
-        .main-content {
-            grid-template-columns: 1fr 1fr 340px;
-            gap: 20px;
-            height: calc(100% - 70px);
-            overflow: hidden;
-            margin-top: 10px;
-        }
-
-        .ranking-section,
-        .top-analysts-panel {
-            padding: 20px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-        }
-
-        .top-analysts-panel {
-            grid-column: auto;
-            max-width: 340px;
-        }
-
-        .ranking-section h2,
-        .top-analysts-panel .panel-title {
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-
-        .analyst-cards-grid {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            align-items: stretch;
-            gap: 15px;
-            width: 100%;
-            flex-wrap: nowrap;
-            overflow: hidden;
-        }
-
-        .analyst-card {
-            width: calc(33.333% - 10px);
-            min-width: 150px;
-            max-width: 190px;
-            padding: 15px 10px;
-            font-size: 1.05em;
-        }
-
-        .analyst-avatar-container {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 10px;
-        }
-
-        .position-badge {
-            width: 32px;
-            height: 32px;
-            font-size: 0.85rem;
-        }
-
-        .analyst-name {
-            font-size: 1.3em;
-        }
-
-        .team-name {
-            font-size: 0.9em;
-        }
-
-        .negotiated-value {
-            font-size: 1.1em;
-        }
-
-        .analyst-points {
-            font-size: 0.8em;
-        }
-
-        .analyst-card .progress-container {
-            margin-top: 10px;
-        }
-
-        .analyst-card .percent-text {
-            font-size: 0.8em;
-        }
-
-        .top-analysts-panel .sub-panel-title {
-            font-size: 1.4rem;
-        }
-
-        .top-analyst-item {
-            padding: 10px 0;
-        }
-
-        .top-analyst-item .rank,
-        .top-analyst-item .name,
-        .top-analyst-item .value {
-            font-size: 1.05rem;
-        }
-
-        .styled-competition-card h4 {
-            font-size: 1.5rem;
-        }
-
-        .styled-competition-card .competition-description {
-            font-size: 1rem;
-        }
-
-        .styled-competition-card .goal-value {
-            font-size: 1.1rem;
-        }
-    }
 </head>
 
 <body>
