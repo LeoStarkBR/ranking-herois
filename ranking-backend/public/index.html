@@ -59,9 +59,16 @@
         }
 
         .container {
-            width: 100%;
-            max-width: 1400px;
+            width: 100vw;
+            max-width: 1920px;
+            height: 100vh;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            overflow: hidden;
+            padding: 5px 0 0 0;
         }
 
         header {
@@ -111,14 +118,40 @@
 
         .main-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-            margin-top: 20px;
+            grid-template-columns: 1fr 1fr 320px; /* Duas colunas grandes + painel lateral */
+            gap: 24px;
+            width: 100vw;
+            max-width: 1920px;
+            height: 78vh;
+            align-items: flex-start;
+            justify-items: center;
+            margin: 0 auto;
+            overflow: hidden;
         }
 
-        .ranking-section,
-        .top-analysts-panel,
+        .ranking-section {
+            min-width: 380px;
+            max-width: 500px;
+            width: 96%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .top-analysts-panel {
+            min-width: 290px;
+            max-width: 340px;
+            width: 99%;
+            margin: 0 auto;
+            align-self: flex-start;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 16px 10px 12px 10px;
+            box-shadow: 0 8px 32px 0 var(--shadow-color);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
         .overall-progress-section {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -160,20 +193,31 @@
         }
 
         .analyst-cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: stretch;
+            gap: 12px;
+            width: 100%;
+            min-width: 340px;
+            max-width: 520px;
+            flex-wrap: nowrap;
         }
 
         .analyst-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            padding: 20px;
+            min-width: 140px;
+            max-width: 170px;
+            width: 100%;
+            padding: 10px 7px 12px 7px;
+            margin: 0;
+            font-size: 1.1rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
             position: relative;
             /* Necessário para o position-badge e movement-indicator */
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -755,32 +799,18 @@
         }
         html, body {
             height: 100vh;
-            overflow: hidden;
+            overflow: hidden !important;
         }
         body {
             padding: 10px; /* reduz padding geral para caber mais conteúdo */
         }
-        .container {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            padding: 5px;
-        }
+        /* .container block above replaced for TV optimization */
         header h1 {
             font-size: 3rem; 
             margin-bottom: 10px;
         }
-        .main-content {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            flex-grow: 1;
-            overflow: hidden;
-            padding-bottom: 5px;
-        }
-        .ranking-section, .top-analysts-panel {
-            padding: 15px;
-        }
+        /* .main-content block above replaced for TV optimization */
+        /* .ranking-section and .top-analysts-panel blocks replaced for TV optimization */
         .ranking-section h2, .top-analysts-panel .panel-title {
             font-size: 2rem;
         }
@@ -798,18 +828,13 @@
         .analyst-card .negotiated-value {
             font-size: 1.25rem;
         }
-        .analyst-cards-grid {
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
+        /* .analyst-cards-grid block replaced for TV optimization */
         .top-analyst-item .rank,
         .top-analyst-item .name,
         .top-analyst-item .value {
             font-size: 1rem;
         }
-        .top-analysts-panel {
-            grid-column: span 1;
-        }
+        /* .top-analysts-panel block replaced for TV optimization */
         .styled-competition-card {
             padding: 15px;
             margin-top: 15px;
@@ -883,11 +908,11 @@
           .top-analyst-item .value {
             font-size: 1.1rem;
           }
-          /* Remove qualquer possibilidade de scroll */
-          html, body, .main-content, .container {
+        /* Remove qualquer possibilidade de scroll */
+        html, body, .main-content, .container {
             overflow: hidden !important;
             height: 100vh;
-          }
+        }
         }
 
         /* Garantia geral (fallback para telas médias/pequenas) */
