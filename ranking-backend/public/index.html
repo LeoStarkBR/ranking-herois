@@ -18,77 +18,75 @@
             --accent-primary: #3b82f6;
             --accent-secondary: #10b981;
             --accent-gold: #f59e0b;
-            --shadow-color: rgba(0,0,0,0.3);
+            --shadow-color: rgba(0, 0, 0, 0.3);
             --font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             --progress-bar-text-color: white;
-            --accent-primary-rgb: 59,130,246;
+            --accent-primary-rgb: 59, 130, 246;
         }
 
         body.light-mode {
             --bg-gradient-start: #e0eafc;
             --bg-gradient-end: #cfdef3;
-            --card-bg: rgba(255,255,255,0.65);
-            --card-border: rgba(0,0,0,0.08);
+            --card-bg: rgba(255, 255, 255, 0.65);
+            --card-border: rgba(0, 0, 0, 0.08);
             --text-primary: #111827;
             --text-secondary: #4b5563;
-            --shadow-color: rgba(0,0,0,0.1);
+            --shadow-color: rgba(0, 0, 0, 0.1);
             --accent-primary: #2563eb;
             --accent-secondary: #059669;
             --accent-gold: #d97706;
             --progress-bar-text-color: white;
-            --accent-primary-rgb: 37,99,235;
+            /* Pode ser ajustado para preto no light mode se o fundo da barra for claro */
+            --accent-primary-rgb: 37, 99, 235;
         }
 
-        html, body {
-            height: 100vh;
+        * {
             margin: 0;
             padding: 0;
-            overflow: hidden !important;
+            box-sizing: border-box;
         }
+
         body {
             font-family: var(--font-family);
             background-image: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
             color: var(--text-primary);
             min-height: 100vh;
-            padding: 8px;
+            padding: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
+
         .container {
-            width: 100vw;
-            max-width: 1920px;
-            height: 100vh;
+            width: 100%;
+            max-width: 1400px;
             margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            overflow: hidden;
-            padding: 0;
         }
+
         header {
             text-align: center;
-            margin-bottom: 14px;
+            margin-bottom: 20px;
             position: relative;
         }
+
         header h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 700;
             letter-spacing: -1px;
             background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
+
         .theme-switcher {
             position: absolute;
             top: 10px;
             right: 10px;
             z-index: 100;
         }
+
         #theme-toggle-button {
             background-color: var(--card-bg);
             color: var(--text-primary);
@@ -101,108 +99,110 @@
             box-shadow: 0 2px 5px var(--shadow-color);
             transition: background-color 0.3s, color 0.3s, transform 0.2s, border-color 0.3s;
         }
+
         #theme-toggle-button:hover {
             transform: translateY(-2px);
             background-color: rgba(var(--accent-primary-rgb), 0.15);
         }
+
         body.light-mode #theme-toggle-button:hover {
             background-color: rgba(var(--accent-primary-rgb), 0.1);
         }
+
         .main-content {
             display: grid;
-            grid-template-columns: 1fr 1fr 340px;
-            gap: 22px;
-            width: 100vw;
-            max-width: 1920px;
-            height: 78vh;
-            align-items: flex-start;
-            justify-items: center;
-            margin: 0 auto;
-            overflow: hidden;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+            margin-top: 20px;
         }
-        .ranking-section {
-            min-width: 340px;
-            max-width: 480px;
-            width: 96%;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .ranking-section h2 {
-            font-size: 1.6rem;
-            font-weight: 600;
-            margin-bottom: 16px;
-            border-bottom: 2px solid var(--accent-primary);
-            padding-bottom: 7px;
-            color: var(--text-primary);
-        }
-        .ranking-section.bb h2 {
-            border-bottom-color: var(--accent-gold);
-        }
-        .top-analysts-panel {
-            min-width: 280px;
-            max-width: 340px;
-            width: 99%;
-            margin: 0 auto;
-            align-self: flex-start;
+
+        .ranking-section,
+        .top-analysts-panel,
+        .overall-progress-section {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 16px;
-            padding: 12px 8px 10px 8px;
+            padding: 25px;
             box-shadow: 0 8px 32px 0 var(--shadow-color);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            grid-column: span 2;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
         }
+
+        .ranking-section:hover,
+        .top-analysts-panel:hover,
+        .overall-progress-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        body.light-mode .ranking-section:hover,
+        body.light-mode .top-analysts-panel:hover,
+        body.light-mode .overall-progress-section:hover {
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.15);
+        }
+
+        .ranking-section h2,
+        .top-analysts-panel .panel-title,
+        .overall-progress-section h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--accent-primary);
+            padding-bottom: 10px;
+            color: var(--text-primary);
+            transition: border-color 0.3s ease, color 0.3s ease;
+        }
+
+        .ranking-section.bb h2 {
+            border-bottom-color: var(--accent-gold);
+        }
+
         .analyst-cards-grid {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: stretch;
-            gap: 10px;
-            width: 100%;
-            min-width: 300px;
-            max-width: 520px;
-            flex-wrap: nowrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
+
         .analyst-card {
-            min-width: 120px;
-            max-width: 170px;
-            width: 100%;
-            padding: 10px 7px 12px 7px;
-            margin: 0;
-            font-size: 1.05rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 12px;
             position: relative;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.18);
-            transition: transform 0.2s, background-color 0.3s, border-color 0.3s;
+            /* Necessário para o position-badge e movement-indicator */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease-in-out, background-color 0.3s ease, border-color 0.3s ease;
         }
+
         body.light-mode .analyst-card {
-            background: rgba(0,0,0,0.03);
-            border: 1px solid rgba(0,0,0,0.08);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         }
+
         .analyst-card:hover {
-            transform: scale(1.025);
+            transform: scale(1.03);
         }
+
         .analyst-avatar-container {
-            width: 78px;
-            height: 78px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
-            margin-bottom: 11px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            box-shadow: 0 0 12px rgba(0,0,0,0.22);
+            /* Necessário para o position-badge e movement-indicator */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
         }
+
         .analyst-avatar-container img.analyst-avatar-image {
             position: absolute;
             top: 0;
@@ -213,239 +213,762 @@
             border-radius: 50%;
             z-index: 0;
         }
+
         body.light-mode .analyst-avatar-container {
-            box-shadow: 0 0 12px rgba(0,0,0,0.10);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
         }
+
+        .avatar-bs {
+            background-image: linear-gradient(135deg, #0ea5e9, #22d3ee);
+        }
+
+        .avatar-bb {
+            background-image: linear-gradient(135deg, #f59e0b, #fbbf24);
+        }
+
+        .avatar-generic1 {
+            background-image: linear-gradient(135deg, #ec4899, #f472b6);
+        }
+
+        .avatar-generic2 {
+            background-image: linear-gradient(135deg, #8b5cf6, #a78bfa);
+        }
+
+        .avatar-generic3 {
+            background-image: linear-gradient(135deg, #10b981, #34d399);
+        }
+
+        .avatar-generic4 {
+            background-image: linear-gradient(135deg, #ef4444, #f87171);
+        }
+
         .analyst-avatar-container::before {
             content: '';
             position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
             border-radius: 50%;
             border: 2px solid var(--card-border);
             opacity: 0.7;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s ease;
         }
+
         body.light-mode .analyst-avatar-container::before {
-            border: 2px solid rgba(0,0,0,0.09);
+            border: 2px solid rgba(0, 0, 0, 0.1);
         }
-        .avatar-bs { background-image: linear-gradient(135deg, #0ea5e9, #22d3ee);}
-        .avatar-bb { background-image: linear-gradient(135deg, #f59e0b, #fbbf24);}
-        .avatar-generic1 { background-image: linear-gradient(135deg, #ec4899, #f472b6);}
-        .avatar-generic2 { background-image: linear-gradient(135deg, #8b5cf6, #a78bfa);}
-        .avatar-generic3 { background-image: linear-gradient(135deg, #10b981, #34d399);}
-        .avatar-generic4 { background-image: linear-gradient(135deg, #ef4444, #f87171);}
+
         .position-badge {
             position: absolute;
-            top: -9px;
-            right: -9px;
+            top: -10px;
+            right: -10px;
             background-color: var(--accent-secondary);
             color: white;
             font-weight: 700;
-            font-size: 0.88rem;
-            width: 30px;
-            height: 30px;
+            font-size: 0.9rem;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
             border: 2px solid white;
             z-index: 1;
-            transition: background-color 0.3s, border-color 0.3s;
+            /* Para ficar sobre outros elementos do avatar */
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
+
         body.light-mode .position-badge {
             border: 2px solid #f0f4f8;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.14);
+            /* Ajuste para contraste no modo claro */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
         }
-        .position-badge.gold { background-color: var(--accent-gold);}
-        .position-badge.silver { background-color: #a0aec0;}
-        .position-badge.bronze { background-color: #cd7f32;}
+
+        .position-badge.gold {
+            background-color: var(--accent-gold);
+        }
+
+        .position-badge.silver {
+            background-color: #a0aec0;
+        }
+
+        /* Usando uma cor fixa para prata */
+        .position-badge.bronze {
+            background-color: #cd7f32;
+        }
+
+        /* Usando uma cor fixa para bronze */
+
         .analyst-name {
-            font-size: 1.17rem;
+            font-size: 1.25rem;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
             color: var(--text-primary);
+            transition: color 0.3s ease;
         }
+
         .team-name {
-            font-size: 0.93rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            margin-bottom: 7px;
+            margin-bottom: 10px;
             font-style: italic;
+            transition: color 0.3s ease;
         }
+
         .negotiated-value {
-            font-size: 1.07rem;
+            font-size: 1.1rem;
             font-weight: 500;
             color: var(--accent-secondary);
+            transition: color 0.3s ease;
         }
+
         .negotiated-value.bb-value {
             color: var(--accent-gold);
         }
+
         .analyst-points {
-            font-size: 0.82em;
+            font-size: 0.85em;
             color: var(--accent-primary);
-            margin-left: 4px;
+            margin-left: 5px;
             font-weight: 500;
             opacity: 0.9;
         }
+
         body.light-mode .analyst-points {
             color: var(--accent-primary);
         }
+
+
+        /* Painel Outros Destaques */
+        .top-analysts-panel {
+            grid-column: span 2;
+        }
+
         .top-analysts-panel .sub-panel-title {
-            font-size: 1.14rem;
+            font-size: 1.3rem;
             font-weight: 600;
             color: var(--text-primary);
-            margin-top: 18px;
-            margin-bottom: 8px;
-            padding-bottom: 4px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
             border-bottom: 1px solid var(--card-border);
         }
+
         .top-analysts-panel .sub-panel-title:first-of-type {
             margin-top: 0;
         }
+
+
+        .styled-competition-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+        }
+
+        .styled-competition-card h4 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .styled-competition-card .competition-description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .styled-competition-card .team-goals {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 10px;
+        }
+
+        .styled-competition-card .team-goal {
+            text-align: center;
+            padding: 10px 15px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease;
+        }
+
+        .styled-competition-card .bs-goal {
+            border: 2px solid var(--accent-primary);
+        }
+
+        .styled-competition-card .bb-goal {
+            border: 2px solid var(--accent-gold);
+        }
+
+        .styled-competition-card .team-goal:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .styled-competition-card .team-goal strong {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+
+        .styled-competition-card .goal-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .styled-competition-card .competition-note {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 992px) {
+            .top-analysts-panel {
+                grid-column: span 1;
+            }
+
+            .theme-switcher {
+                position: static;
+                margin-bottom: 15px;
+                text-align: center;
+            }
+
+            header h1 {
+                font-size: 2.2rem;
+            }
+        }
+
         .top-analyst-list {
             list-style: none;
             padding: 0;
         }
+
         .top-analyst-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
+            padding: 12px 0;
             border-bottom: 1px solid var(--card-border);
-            font-size: 0.93rem;
-            transition: border-color 0.3s;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
             position: relative;
+            /* Para indicadores de movimento na lista */
         }
+
         .top-analyst-item:last-child {
             border-bottom: none;
         }
+
         .top-analyst-item .rank {
             font-weight: 600;
             color: var(--accent-primary);
-            min-width: 28px;
+            min-width: 30px;
+            /* Para alinhar os ranks */
             display: flex;
+            /* Para alinhar indicador com o rank */
             align-items: center;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
         }
+
         .top-analyst-item .name {
             flex-grow: 1;
-            margin-left: 9px;
+            margin-left: 10px;
             color: var(--text-primary);
-            transition: color 0.3s;
+            transition: color 0.3s ease;
         }
+
         .top-analyst-item .value {
             font-weight: 500;
             color: var(--text-secondary);
-            transition: color 0.3s;
+            transition: color 0.3s ease;
             text-align: right;
         }
-        .styled-competition-card {
-            background: rgba(255,255,255,0.10);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 13px;
-            margin-top: 13px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.16);
-            backdrop-filter: blur(8px);
+
+        .overall-progress-section {
+            grid-column: 1 / -1;
+            /* Ocupa toda a largura da grid */
         }
-        .styled-competition-card h4 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--accent-gold);
-            margin-bottom: 7px;
-            text-align: center;
-        }
-        .styled-competition-card .competition-description {
-            font-size: 0.98rem;
-            color: var(--text-secondary);
-            margin-bottom: 13px;
-            text-align: center;
-        }
-        .styled-competition-card .team-goals {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 8px;
-        }
-        .styled-competition-card .team-goal {
-            text-align: center;
-            padding: 8px 12px;
-            border-radius: 8px;
-            background: rgba(0,0,0,0.05);
-            transition: background-color 0.3s;
-        }
-        .styled-competition-card .bs-goal {
-            border: 2px solid var(--accent-primary);
-        }
-        .styled-competition-card .bb-goal {
-            border: 2px solid var(--accent-gold);
-        }
-        .styled-competition-card .team-goal:hover {
-            background: rgba(255,255,255,0.11);
-        }
-        .styled-competition-card .team-goal strong {
-            display: block;
-            margin-bottom: 4px;
-            color: var(--text-primary);
-        }
-        .styled-competition-card .goal-value {
-            font-size: 1.11rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-        .styled-competition-card .competition-note {
-            font-size: 0.82rem;
-            color: var(--text-secondary);
-            text-align: center;
-            margin-top: 8px;
-        }
-        .analyst-card .progress-container {
+
+        .progress-bar-container {
             width: 100%;
-            height: 6px;
-            background-color: rgba(255,255,255,0.13);
-            border-radius: 4px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 25px;
+            height: 30px;
             margin-top: 10px;
             position: relative;
             overflow: hidden;
+            border: 1px solid var(--card-border);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
+
+        body.light-mode .progress-bar-container {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 25px;
+            /* Para cantos arredondados mesmo com width baixo */
+            background-image: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            transition: width 0.8s ease-out, background-image 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-bar-text {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--progress-bar-text-color);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            transition: color 0.3s ease;
+        }
+
+        body.light-mode .progress-bar-text {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* === CSS PARA ANIMAÇÕES DE RANKING === */
+        .movement-indicator,
+        .movement-indicator-list {
+            font-size: 1em;
+            /* Ajustado para não ser muito grande */
+            animation: pulse 1.5s infinite ease-in-out;
+            display: inline-block;
+            /* Para que o margin-left funcione */
+            line-height: 1;
+            /* Para alinhar verticalmente melhor com o texto */
+        }
+
+        /* Indicador no Card (dentro do avatar) */
+        .analyst-avatar-container .movement-indicator {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            /* Levemente maior */
+            height: 22px;
+            /* Levemente maior */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            /* Menor para caber no círculo */
+            z-index: 2;
+            /* Acima do ::before do avatar */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Indicador na Lista (ao lado do rank ou nome) */
+        .top-analyst-item .rank .movement-indicator-list,
+        .top-analyst-item .name .movement-indicator-list {
+            margin-left: 6px;
+        }
+
+        .movement-indicator.up,
+        .movement-indicator-list.up {
+            color: var(--accent-secondary);
+            /* Verde */
+        }
+
+        .movement-indicator.down,
+        .movement-indicator-list.down {
+            color: #ef4444;
+            /* Vermelho (usando uma cor fixa de exemplo) */
+        }
+
+        .movement-indicator.recent,
+        .movement-indicator-list.recent {
+            animation: pulse 1.5s infinite ease-in-out;
+            opacity: 1;
+        }
+
+        .movement-indicator.stale,
+        .movement-indicator-list.stale {
+            animation: none;
+            opacity: 0.5;
+            transition: opacity 0.5s ease;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.25);
+                opacity: 0.8;
+            }
+        }
+
+        /* Destaque para itens que mudaram de posição */
+        .analyst-card.moved-up,
+        .analyst-card.moved-down {
+            animation: highlight-change-card 2s ease-out;
+        }
+
+        .top-analyst-item.moved-up-list,
+        /* Aplicar à linha inteira do item da lista */
+        .top-analyst-item.moved-down-list {
+            animation: highlight-change-list-item 2s ease-out;
+        }
+
+        @keyframes highlight-change-card {
+
+            /* Para os cards */
+            0% {
+                box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 0px rgba(var(--accent-primary-rgb), 0);
+            }
+
+            25% {
+                box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 4px rgba(var(--accent-primary-rgb), 0.4);
+            }
+
+            100% {
+                box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 0px rgba(var(--accent-primary-rgb), 0);
+            }
+        }
+
+        body.light-mode .analyst-card.moved-up,
+        body.light-mode .analyst-card.moved-down {
+            animation: highlight-change-card-light 2s ease-out;
+        }
+
+        @keyframes highlight-change-card-light {
+            0% {
+                box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 0px rgba(var(--accent-primary-rgb), 0);
+            }
+
+            25% {
+                box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 4px rgba(var(--accent-primary-rgb), 0.2);
+            }
+
+            100% {
+                box-shadow: 0 8px 32px 0 var(--shadow-color), 0 0 0 0px rgba(var(--accent-primary-rgb), 0);
+            }
+        }
+
+
+        @keyframes highlight-change-list-item {
+
+            /* Para os itens da lista */
+            0% {
+                background-color: transparent;
+            }
+
+            25% {
+                background-color: rgba(var(--accent-primary-rgb), 0.1);
+            }
+
+            100% {
+                background-color: transparent;
+            }
+        }
+
+        body.light-mode .top-analyst-item.moved-up-list,
+        body.light-mode .top-analyst-item.moved-down-list {
+            animation: highlight-change-list-item-light 2s ease-out;
+        }
+
+        @keyframes highlight-change-list-item-light {
+            0% {
+                background-color: transparent;
+            }
+
+            25% {
+                background-color: rgba(var(--accent-primary-rgb), 0.05);
+            }
+
+            100% {
+                background-color: transparent;
+            }
+        }
+
+        /* === FIM CSS PARA ANIMAÇÕES DE RANKING === */
+
+        /* Suavizar remoções dos elementos com animação */
+        .analyst-card,
+        .top-analyst-item {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .removing {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        /* Barra de progresso individual dentro do analyst-card */
+        .analyst-card .progress-container {
+            width: 100%;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            margin-top: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
         .analyst-card .progress-bar {
             height: 100%;
             width: 0%;
+            /* Será ajustado pelo JS */
             background-image: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
             border-radius: 4px;
             transition: width 1s ease-out;
         }
+
         .analyst-card .percent-text {
             display: block;
-            margin-top: 3px;
-            font-size: 0.74rem;
+            margin-top: 4px;
+            font-size: 0.75rem;
             font-weight: 500;
             color: var(--text-secondary);
             text-align: right;
         }
-        .percent-text {
-            font-size: 0.74rem;
-            color: var(--text-secondary);
-        }
-        /* Animações e indicadores mantidos, não alterados */
 
-        @media (min-width: 1200px) {
-            html { font-size: 19px; }
-            .main-content { gap: 30px; }
-            .analyst-card { font-size: 1.13rem; }
-            .ranking-section h2 { font-size: 1.8rem; }
-            .top-analysts-panel .sub-panel-title { font-size: 1.18rem; }
+        /* Ajustes para exibição em TV grande */
+        html {
+            font-size: 18px;
         }
-        @media (min-width: 1800px) {
-            html { font-size: 22px; }
-            .main-content { gap: 36px; }
-            .analyst-card { font-size: 1.22rem; }
-            .ranking-section h2 { font-size: 2.1rem; }
-            .top-analysts-panel .sub-panel-title { font-size: 1.23rem; }
+        html, body {
+            height: 100vh;
+            overflow: hidden;
+        }
+        body {
+            padding: 10px; /* reduz padding geral para caber mais conteúdo */
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 5px;
+        }
+        header h1 {
+            font-size: 3rem; 
+            margin-bottom: 10px;
+        }
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            flex-grow: 1;
+            overflow: hidden;
+            padding-bottom: 5px;
+        }
+        .ranking-section, .top-analysts-panel {
+            padding: 15px;
+        }
+        .ranking-section h2, .top-analysts-panel .panel-title {
+            font-size: 2rem;
+        }
+        .analyst-card {
+            padding: 15px;
+        }
+        .analyst-card .analyst-name {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        .analyst-card .team-name {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+        .analyst-card .negotiated-value {
+            font-size: 1.25rem;
+        }
+        .analyst-cards-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .top-analyst-item .rank,
+        .top-analyst-item .name,
+        .top-analyst-item .value {
+            font-size: 1rem;
+        }
+        .top-analysts-panel {
+            grid-column: span 1;
+        }
+        .styled-competition-card {
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .styled-competition-card h4 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+        .styled-competition-card .competition-description,
+        .styled-competition-card .competition-note {
+            font-size: 1rem;
+        }
+        /* Remove scroll em telas menores */
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .top-analysts-panel {
+                grid-column: span 1;
+            }
+            header h1 {
+                font-size: 3rem;
+            }
         }
     </style>
+    /* Ajustes específicos para TV Full HD e telas grandes */
+    @media (min-width: 1600px) { /* Ponto de quebra para layout de TV */
+        html {
+            font-size: 18px;
+        }
+
+        body {
+            padding: 15px;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1920px;
+            height: calc(100vh - 30px);
+            overflow: hidden;
+        }
+
+        header {
+            margin-bottom: 15px;
+        }
+
+        header h1 {
+            font-size: 3rem;
+        }
+
+        .main-content {
+            grid-template-columns: 1fr 1fr 340px;
+            gap: 20px;
+            height: calc(100% - 70px);
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .ranking-section,
+        .top-analysts-panel {
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .top-analysts-panel {
+            grid-column: auto;
+            max-width: 340px;
+        }
+
+        .ranking-section h2,
+        .top-analysts-panel .panel-title {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .analyst-cards-grid {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: stretch;
+            gap: 15px;
+            width: 100%;
+            flex-wrap: nowrap;
+            overflow: hidden;
+        }
+
+        .analyst-card {
+            width: calc(33.333% - 10px);
+            min-width: 150px;
+            max-width: 190px;
+            padding: 15px 10px;
+            font-size: 1.05em;
+        }
+
+        .analyst-avatar-container {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+
+        .position-badge {
+            width: 32px;
+            height: 32px;
+            font-size: 0.85rem;
+        }
+
+        .analyst-name {
+            font-size: 1.3em;
+        }
+
+        .team-name {
+            font-size: 0.9em;
+        }
+
+        .negotiated-value {
+            font-size: 1.1em;
+        }
+
+        .analyst-points {
+            font-size: 0.8em;
+        }
+
+        .analyst-card .progress-container {
+            margin-top: 10px;
+        }
+
+        .analyst-card .percent-text {
+            font-size: 0.8em;
+        }
+
+        .top-analysts-panel .sub-panel-title {
+            font-size: 1.4rem;
+        }
+
+        .top-analyst-item {
+            padding: 10px 0;
+        }
+
+        .top-analyst-item .rank,
+        .top-analyst-item .name,
+        .top-analyst-item .value {
+            font-size: 1.05rem;
+        }
+
+        .styled-competition-card h4 {
+            font-size: 1.5rem;
+        }
+
+        .styled-competition-card .competition-description {
+            font-size: 1rem;
+        }
+
+        .styled-competition-card .goal-value {
+            font-size: 1.1rem;
+        }
+    }
 </head>
 
 <body>
