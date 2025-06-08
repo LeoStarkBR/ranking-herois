@@ -834,6 +834,74 @@
                 font-size: 3rem;
             }
         }
+
+        /* --- Otimizações para TV Full HD (1920x1080) e telas grandes similares --- */
+        @media (min-width: 1700px) {
+
+            html {
+                font-size: 24px; 
+            }
+
+            body {
+                padding: 25px;
+            }
+
+            .container {
+                max-width: 1880px;
+            }
+
+            header {
+                margin-bottom: 25px;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr 1fr minmax(360px, 420px);
+                gap: 30px;
+                margin-top: 25px;
+            }
+
+            .ranking-section,
+            .top-analysts-panel {
+                padding: 30px;
+            }
+
+            .top-analysts-panel {
+                grid-column: auto;
+            }
+
+            .analyst-cards-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 25px;
+            }
+
+            .analyst-card {
+                padding: 25px;
+            }
+
+            .analyst-avatar-container {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 20px;
+            }
+
+            .position-badge {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .top-analysts-panel .sub-panel-title {
+            }
+
+            .top-analyst-item {
+                padding: 14px 0;
+            }
+
+            .styled-competition-card {
+                padding: 25px;
+                margin-top: 25px;
+            }
+        }
     </style>
 </head>
 
