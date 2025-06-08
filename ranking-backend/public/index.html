@@ -748,92 +748,6 @@
             color: var(--text-secondary);
             text-align: right;
         }
-
-        /* Ajustes para exibição em TV grande */
-        html {
-            font-size: 18px;
-        }
-        html, body {
-            height: 100vh;
-            overflow: hidden;
-        }
-        body {
-            padding: 10px; /* reduz padding geral para caber mais conteúdo */
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            padding: 5px;
-        }
-        header h1 {
-            font-size: 3rem; 
-            margin-bottom: 10px;
-        }
-        .main-content {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            flex-grow: 1;
-            overflow: hidden;
-            padding-bottom: 5px;
-        }
-        .ranking-section, .top-analysts-panel {
-            padding: 15px;
-        }
-        .ranking-section h2, .top-analysts-panel .panel-title {
-            font-size: 2rem;
-        }
-        .analyst-card {
-            padding: 15px;
-        }
-        .analyst-card .analyst-name {
-            font-size: 1.5rem;
-            margin-bottom: 8px;
-        }
-        .analyst-card .team-name {
-            font-size: 1.1rem;
-            margin-bottom: 6px;
-        }
-        .analyst-card .negotiated-value {
-            font-size: 1.25rem;
-        }
-        .analyst-cards-grid {
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-        .top-analyst-item .rank,
-        .top-analyst-item .name,
-        .top-analyst-item .value {
-            font-size: 1rem;
-        }
-        .top-analysts-panel {
-            grid-column: span 1;
-        }
-        .styled-competition-card {
-            padding: 15px;
-            margin-top: 15px;
-        }
-        .styled-competition-card h4 {
-            font-size: 1.8rem;
-            margin-bottom: 8px;
-        }
-        .styled-competition-card .competition-description,
-        .styled-competition-card .competition-note {
-            font-size: 1rem;
-        }
-        /* Remove scroll em telas menores */
-        @media (max-width: 992px) {
-            .main-content {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            .top-analysts-panel {
-                grid-column: span 1;
-            }
-            header h1 {
-                font-size: 3rem;
-            }
-        }
     </style>
 </head>
 
@@ -1159,5 +1073,3 @@
 
     </script>
 </body>
-
-</html>
