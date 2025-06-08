@@ -45,12 +45,22 @@ body.light-mode {
     box-sizing: border-box;
 }
 
+html {
+    font-size: 18px;
+    height: 100%;
+}
+
+body, html {
+    height: 100vh;
+    overflow: hidden;
+}
+
 body {
     font-family: var(--font-family);
     background-image: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
     color: var(--text-primary);
     min-height: 100vh;
-    padding: 30px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -61,6 +71,10 @@ body {
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 5px;
 }
 
 header {
@@ -68,9 +82,9 @@ header {
     margin-bottom: 20px;
     position: relative;
 }
-
 header h1 {
-    font-size: 2.8rem;
+    font-size: 3rem;
+    margin-bottom: 10px;
     font-weight: 700;
     letter-spacing: -1px;
     background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
@@ -98,20 +112,21 @@ header h1 {
     box-shadow: 0 2px 5px var(--shadow-color);
     transition: background-color 0.3s, color 0.3s, transform 0.2s, border-color 0.3s;
 }
-
 #theme-toggle-button:hover {
     transform: translateY(-2px);
     background-color: rgba(var(--accent-primary-rgb), 0.15);
 }
-
 body.light-mode #theme-toggle-button:hover {
     background-color: rgba(var(--accent-primary-rgb), 0.1);
 }
 
 .main-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    flex-grow: 1;
+    overflow: hidden;
+    padding-bottom: 5px;
     margin-bottom: 30px;
     margin-top: 20px;
 }
@@ -122,7 +137,7 @@ body.light-mode #theme-toggle-button:hover {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 16px;
-    padding: 25px;
+    padding: 15px;
     box-shadow: 0 8px 32px 0 var(--shadow-color);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -135,7 +150,6 @@ body.light-mode #theme-toggle-button:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
 }
-
 body.light-mode .ranking-section:hover,
 body.light-mode .top-analysts-panel:hover,
 body.light-mode .overall-progress-section:hover {
@@ -145,7 +159,7 @@ body.light-mode .overall-progress-section:hover {
 .ranking-section h2,
 .top-analysts-panel .panel-title,
 .overall-progress-section h3 {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 600;
     margin-bottom: 20px;
     border-bottom: 2px solid var(--accent-primary);
@@ -153,22 +167,20 @@ body.light-mode .overall-progress-section:hover {
     color: var(--text-primary);
     transition: border-color 0.3s ease, color 0.3s ease;
 }
-
 .ranking-section.bb h2 {
     border-bottom-color: var(--accent-gold);
 }
 
 .analyst-cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
 }
-
 .analyst-card {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 12px;
-    padding: 20px;
+    padding: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -177,17 +189,14 @@ body.light-mode .overall-progress-section:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease-in-out, background-color 0.3s ease, border-color 0.3s ease;
 }
-
 body.light-mode .analyst-card {
     background: rgba(0, 0, 0, 0.03);
     border: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
-
 .analyst-card:hover {
     transform: scale(1.03);
 }
-
 .analyst-avatar-container {
     width: 90px;
     height: 90px;
@@ -199,7 +208,6 @@ body.light-mode .analyst-card {
     position: relative;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
-
 .analyst-avatar-container img.analyst-avatar-image {
     position: absolute;
     top: 0;
@@ -210,35 +218,27 @@ body.light-mode .analyst-card {
     border-radius: 50%;
     z-index: 0;
 }
-
 body.light-mode .analyst-avatar-container {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
 }
-
 .avatar-bs {
     background-image: linear-gradient(135deg, #0ea5e9, #22d3ee);
 }
-
 .avatar-bb {
     background-image: linear-gradient(135deg, #f59e0b, #fbbf24);
 }
-
 .avatar-generic1 {
     background-image: linear-gradient(135deg, #ec4899, #f472b6);
 }
-
 .avatar-generic2 {
     background-image: linear-gradient(135deg, #8b5cf6, #a78bfa);
 }
-
 .avatar-generic3 {
     background-image: linear-gradient(135deg, #10b981, #34d399);
 }
-
 .avatar-generic4 {
     background-image: linear-gradient(135deg, #ef4444, #f87171);
 }
-
 .analyst-avatar-container::before {
     content: '';
     position: absolute;
@@ -251,11 +251,9 @@ body.light-mode .analyst-avatar-container {
     opacity: 0.7;
     transition: border-color 0.3s ease;
 }
-
 body.light-mode .analyst-avatar-container::before {
     border: 2px solid rgba(0, 0, 0, 0.1);
 }
-
 .position-badge {
     position: absolute;
     top: -10px;
@@ -275,12 +273,10 @@ body.light-mode .analyst-avatar-container::before {
     z-index: 1;
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-
 body.light-mode .position-badge {
     border: 2px solid #f0f4f8;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
-
 .position-badge.gold {
     background-color: var(--accent-gold);
 }
@@ -290,23 +286,22 @@ body.light-mode .position-badge {
 .position-badge.bronze {
     background-color: #cd7f32;
 }
-
 .analyst-name {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 600;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     color: var(--text-primary);
     transition: color 0.3s ease;
 }
 .team-name {
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     color: var(--text-secondary);
-    margin-bottom: 10px;
+    margin-bottom: 6px;
     font-style: italic;
     transition: color 0.3s ease;
 }
 .negotiated-value {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     font-weight: 500;
     color: var(--accent-secondary);
     transition: color 0.3s ease;
@@ -326,7 +321,7 @@ body.light-mode .analyst-points {
 }
 
 .top-analysts-panel {
-    grid-column: span 2;
+    grid-column: span 1;
 }
 .top-analysts-panel .sub-panel-title {
     font-size: 1.3rem;
@@ -345,16 +340,16 @@ body.light-mode .analyst-points {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid var(--card-border);
     border-radius: 12px;
-    padding: 20px;
-    margin-top: 20px;
+    padding: 15px;
+    margin-top: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(8px);
 }
 .styled-competition-card h4 {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     font-weight: 600;
     color: var(--accent-gold);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     text-align: center;
 }
 .styled-competition-card .competition-description {
@@ -395,13 +390,16 @@ body.light-mode .analyst-points {
     color: var(--text-primary);
 }
 .styled-competition-card .competition-note {
-    font-size: 0.85rem;
+    font-size: 1rem;
     color: var(--text-secondary);
     text-align: center;
     margin-top: 10px;
 }
 
 @media (max-width: 992px) {
+    .main-content {
+        grid-template-columns: repeat(3, 1fr);
+    }
     .top-analysts-panel {
         grid-column: span 1;
     }
@@ -411,7 +409,7 @@ body.light-mode .analyst-points {
         text-align: center;
     }
     header h1 {
-        font-size: 2.2rem;
+        font-size: 3rem;
     }
 }
 
@@ -425,7 +423,7 @@ body.light-mode .analyst-points {
     align-items: center;
     padding: 12px 0;
     border-bottom: 1px solid var(--card-border);
-    font-size: 0.95rem;
+    font-size: 1rem;
     transition: border-color 0.3s ease;
     position: relative;
 }
@@ -647,89 +645,7 @@ body.light-mode .top-analyst-item.moved-down-list {
     color: var(--text-secondary);
     text-align: right;
 }
-html {
-    font-size: 18px;
-}
-html, body {
-    height: 100vh;
-    overflow: hidden;
-}
-body {
-    padding: 10px;
-}
-.container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 5px;
-}
-header h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
-}
-.main-content {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    flex-grow: 1;
-    overflow: hidden;
-    padding-bottom: 5px;
-}
-.ranking-section, .top-analysts-panel {
-    padding: 15px;
-}
-.ranking-section h2, .top-analysts-panel .panel-title {
-    font-size: 2rem;
-}
-.analyst-card {
-    padding: 15px;
-}
-.analyst-card .analyst-name {
-    font-size: 1.5rem;
-    margin-bottom: 8px;
-}
-.analyst-card .team-name {
-    font-size: 1.1rem;
-    margin-bottom: 6px;
-}
-.analyst-card .negotiated-value {
-    font-size: 1.25rem;
-}
-.analyst-cards-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-}
-.top-analyst-item .rank,
-.top-analyst-item .name,
-.top-analyst-item .value {
-    font-size: 1rem;
-}
-.top-analysts-panel {
-    grid-column: span 1;
-}
-.styled-competition-card {
-    padding: 15px;
-    margin-top: 15px;
-}
-.styled-competition-card h4 {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
-}
-.styled-competition-card .competition-description,
-.styled-competition-card .competition-note {
-    font-size: 1rem;
-}
-@media (max-width: 992px) {
-    .main-content {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    .top-analysts-panel {
-        grid-column: span 1;
-    }
-    header h1 {
-        font-size: 3rem;
-    }
-}
+
 @media (min-width: 1800px) {
     html {
         font-size: 20px;
@@ -787,6 +703,27 @@ header h1 {
     .styled-competition-card .competition-description { font-size: 1.1rem; }
     .styled-competition-card .goal-value { font-size: 1.2rem; }
     .styled-competition-card .competition-note { font-size: 0.9rem; }
+}
+@media (max-width: 600px) {
+    html {
+        font-size: 16px;
+    }
+    .main-content {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .analyst-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    .styled-competition-card {
+        padding: 10px;
+        margin-top: 10px;
+    }
+    .styled-competition-card h4 { font-size: 1.2rem; }
+    .styled-competition-card .competition-description { font-size: 0.9rem; }
+    .styled-competition-card .goal-value { font-size: 1rem; }
+    .styled-competition-card .competition-note { font-size: 0.75rem; }
 }
     </style>
 </head>
